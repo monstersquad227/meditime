@@ -1,8 +1,11 @@
 {
     "src": [
-	"pages/Index",
-	"pages/Dashboard/Dashboard",
-	"pages/Me/featureFeedback/featureFeedback",
-	"pages/Me/personalInformation/personalInformation"
+		"pages/Index",
+		"pages/Login/Login",
+		"pages/Dashboard/Dashboard",
+		"pages/Me/featureFeedback/featureFeedback",
+		"pages/Me/personalInformation/personalInformation",
+		"pages/Login/Privacy/UserService",
+		"pages/Login/Privacy/PrivacyPolicy"
     ]
 }

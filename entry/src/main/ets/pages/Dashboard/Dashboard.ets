@@ -2,6 +2,7 @@ import { DailyDose } from '../DailyDose/DailyDose';
 import { DoseLog } from '../DoseLog/DoseLog';
 import { Me } from '../Me/Me';
 import { MyMeds } from '../MyMeds/MyMeds';
+import { promptAction } from '@kit.ArkUI';
 
 @Entry
 @Component

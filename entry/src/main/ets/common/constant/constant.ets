@@ -1,1 +1,1 @@
-export const baseURL: string = 'http://127.0.0.1:8080/medicine'
+export const baseURL: string = 'http://47.103.98.61:8080/medicine'
