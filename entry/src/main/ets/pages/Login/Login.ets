@@ -5,6 +5,7 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { JSON, util } from '@kit.ArkTS';
 import { medicineLogin } from '../../common/function/medicineLogin';
+import { LoginRequestData } from '../../common/interface/medicineLogin';
 
 @Entry
 @Component
@@ -13,45 +14,6 @@ export struct Login {
     @State avatarUri: string|undefined = '';
     @State nickName: string|undefined = '';
 
-    // onPageShow(): void {
-    //     // 创建授权请求，并设置参数
-    //     const authRequest = new authentication.HuaweiIDProvider().createAuthorizationWithHuaweiIDRequest();
-    //     // 获取头像昵称需要传如下scope
-    //     authRequest.scopes = ['profile'];
-    //     // 若开发者需要进行服务端开发，则需传如下permission获取authorizationCode
-    //     authRequest.permissions = ['serviceauthcode'];
-    //     // 用户是否需要登录授权，该值为true且用户未登录或未授权时，会拉起用户登录或授权页面
-    //     authRequest.forceAuthorization = true;
-    //     // 用于防跨站点请求伪造
-    //     authRequest.state = util.generateRandomUUID();
-    //
-    //     try {
-    //         const controller = new authentication.AuthenticationController(getContext(this));
-    //         controller.executeRequest(authRequest).then((data) => {
-    //             const authorizationWithHuaweiIDResponse = data as authentication.AuthorizationWithHuaweiIDResponse;
-    //             const state = authorizationWithHuaweiIDResponse.state;
-    //             if (state && authRequest.state !== state) {
-    //                 hilog.error(0x0000, 'testTag', `Failed to authorize. The state is different, response state: ${state}`);
-    //                 return;
-    //             }
-    //             hilog.info(0x0000, 'testTag', 'Succeeded in authentication.');
-    //             const authorizationWithHuaweiIDCredential = authorizationWithHuaweiIDResponse.data!;
-    //             const avatarUri = authorizationWithHuaweiIDCredential.avatarUri;
-    //             const nickName = authorizationWithHuaweiIDCredential.nickName;
-    //             const authorizationCode = authorizationWithHuaweiIDCredential.authorizationCode;
-    //             // 开发者处理avatarUri, nickName, authorizationCode
-    //             this.avatarUri = avatarUri
-    //             this.nickName = nickName
-    //             // hilog.info(0x0000, 'testTag', 'avatarUri: '+avatarUri);
-    //             // hilog.info(0x0000, 'testTag', 'nickName: '+nickName);
-    //             // hilog.info(0x0000, 'testTag', 'authorizationCode: '+authorizationCode);
-    //         }).catch((err: BusinessError) => {
-    //             promptAction.showToast({ message: JSON.stringify(err) })
-    //         });
-    //     } catch (error) {
-    //         promptAction.showToast({ message: JSON.stringify(error) })
-    //     }
-    // }
     controller: loginComponentManager.LoginWithHuaweiIDButtonController =
         new loginComponentManager.LoginWithHuaweiIDButtonController()
             .setAgreementStatus(loginComponentManager.AgreementStatus.NOT_ACCEPTED)
@@ -59,14 +21,26 @@ export struct Login {
                 if (error) {
                     promptAction.showToast({ message: '请先阅读并同意隐私协议' })
                 } else {
-                    // hilog.info(0x0000, 'loginSuccess', JSON.stringify(response.authorizationCode));
-                    let result = await medicineLogin(JSON.stringify(response.authorizationCode));
-                    AlertDialog.show({ title: 'login', message: JSON.stringify(result)})
-                    // PersistentStorage.persistProp('token', result?.token)
-                    // AppStorage.setOrCreate('huaweiID', result?.user.huawei_id)
-                    // AppStorage.setOrCreate('phone', result?.user.phone_num)
-                    //
-                    // hilog.info(0x0000, 'loginSuccessRepose', result?.user.huawei_id)
+                    let data: LoginRequestData = {
+                        authorization_code: response.authorizationCode
+                    }
+                    let result = await medicineLogin(data);
+
+                    if (!result) {
+                        promptAction.showToast({ message: '登录失败，请重试' });
+                        return;
+                    }
+
+                    try {
+                        PersistentStorage.persistProp('token', result.token);
+                    } catch (e) {
+                        promptAction.showToast({ message: 'Token保存失败' });
+                        return;
+                    }
+
+                    AppStorage.setOrCreate('huaweiID', result?.user.huawei_id)
+                    AppStorage.setOrCreate('user_id', result?.user.id)
+                    AppStorage.setOrCreate('phone', result?.user.phone_num)
                     router.pushUrl({ url: 'pages/Dashboard/Dashboard'})
                 }
             })
