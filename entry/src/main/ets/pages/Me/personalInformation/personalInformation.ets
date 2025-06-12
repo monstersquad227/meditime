@@ -65,6 +65,18 @@ struct personalInformation {
             }
             .margin({ top: '20.00vp' })
 
+            Blank().layoutWeight(1)
+
+            Button($r('app.string.LogOut'))
+                .width('90%')
+                .height('50.00vp')
+                .onClick(() => {
+                    PersistentStorage.deleteProp('token')
+                    PersistentStorage.deleteProp('user_id')
+                    PersistentStorage.deleteProp('huawei_id')
+                    router.pushUrl({url: 'pages/Login/Login'})
+                })
+
         }.height('100%').width('100%')
     }
 }

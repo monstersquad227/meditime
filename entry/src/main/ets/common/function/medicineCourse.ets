@@ -1,6 +1,8 @@
 import { http } from "@kit.NetworkKit";
 import { baseURL } from "../constant/constant";
-import { ListCourseData, ListCourseResponse } from "../interface/medicineCourse";
+import { CreateCourseData,
+    CreateCourseResponse,
+    ListCourseData, ListCourseResponse } from "../interface/medicineCourse";
 import { promptAction } from "@kit.ArkUI";
 
 export async function ListCourse(): Promise<ListCourseData[]> {
@@ -54,5 +56,35 @@ export function translateType(type: number): string {
             return '外服';
         default:
             return '内服';
+    }
+}
+
+export async function CreateCourse(data: CreateCourseData): Promise<void> {
+    let httpRequest = http.createHttp();
+    let URL = baseURL + '/course';
+
+    try {
+        await httpRequest.request(URL, {
+            method: http.RequestMethod.POST,
+            connectTimeout: 3000,
+            readTimeout: 3000,
+            header: {
+                'Content-Type': 'application/json',
+                'token': AppStorage.get('token')
+            },
+            extraData: data,
+            expectDataType: http.HttpDataType.OBJECT
+        }).then((res: http.HttpResponse) => {
+            let result = res.result as CreateCourseResponse
+            if (result.code !== 0) {
+                promptAction.showToast({ message: result.message });
+                return;
+            } else {
+                promptAction.showToast({ message: '添加成功' });
+            }
+        })
+    } catch (error) {
+        promptAction.showToast({ message: 'Network error' });
+        return;
     }
 }

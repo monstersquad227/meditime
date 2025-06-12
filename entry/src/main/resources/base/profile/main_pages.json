@@ -3,6 +3,7 @@
 		"pages/Index",
 		"pages/Login/Login",
 		"pages/Dashboard/Dashboard",
+		"pages/MyMeds/course/course",
 		"pages/Me/featureFeedback/featureFeedback",
 		"pages/Me/personalInformation/personalInformation",
 		"pages/Login/Privacy/UserService",

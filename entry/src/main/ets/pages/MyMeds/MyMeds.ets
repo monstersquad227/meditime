@@ -63,7 +63,7 @@ export struct MyMeds {
                 .borderRadius(16)
                 .fontSize('16.00vp')
                 .onClick(() => {
-                    router.pushUrl({ url: 'pages/Main/SubPages/MedicineCourse' })
+                    router.pushUrl({ url: 'pages/MyMeds/course/course' })
                 })
         }
     }

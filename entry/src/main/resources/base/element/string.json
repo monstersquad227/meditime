@@ -1,40 +1,44 @@
 {
     "string": [
-	{
-	    "name": "module_desc",
-	    "value": "module description"
-	},
-	{
-	    "name": "EntryAbility_desc",
-	    "value": "description"
-	},
-	{
-	    "name": "EntryAbility_label",
-	    "value": "按时吃药"
-	},
-	{
-	    "name": "NoNeedToPunchInToday",
-	    "value": "今日无需打卡"
-	},
-	{
-	    "name": "AddMedicationRegimen",
-	    "value": "添加用药方案"
-	},
-	{
-	    "name": "FAQ",
-	    "value": "常见问题"
-	},
-	{
-	    "name": "PersonalInformation",
-	    "value": "个人信息"
-	},
-	{
-	    "name": "Feedback",
-	    "value": "功能反馈"
-	},
-	{
-	    "name": "SupportAuthor",
-	    "value": "支持作者"
-	}
+		{
+			"name": "module_desc",
+	    	"value": "module description"
+		},
+		{
+		    "name": "EntryAbility_desc",
+	    	"value": "description"
+		},
+		{
+		    "name": "EntryAbility_label",
+	    	"value": "按时吃药"
+		},
+		{
+		    "name": "NoNeedToPunchInToday",
+	    	"value": "今日无需打卡"
+		},
+		{
+		    "name": "AddMedicationRegimen",
+	    	"value": "添加用药方案"
+		},
+		{
+	    	"name": "FAQ",
+	    	"value": "常见问题"
+		},
+		{
+		    "name": "PersonalInformation",
+	    	"value": "个人信息"
+		},
+		{
+		    "name": "Feedback",
+	    	"value": "功能反馈"
+		},
+		{
+		    "name": "SupportAuthor",
+	    	"value": "支持作者"
+		},
+		{
+			"name": "LogOut",
+			"value": "退出登录"
+		}
     ]
 }

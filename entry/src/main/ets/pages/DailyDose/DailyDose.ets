@@ -58,7 +58,7 @@ export struct DailyDose {
                                 .borderRadius(16)
                                 .fontSize('16.00vp')
                                 .onClick(() => {
-                                    router.pushUrl({ url: 'pages/Main/SubPages/MedicineCourse' })
+                                    router.pushUrl({ url: 'pages/MyMeds/course/course' })
                                 })
                         }.margin({ top: '50.00vp' })
                         .layoutWeight(1)

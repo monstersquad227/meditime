@@ -34,7 +34,9 @@ export struct DoseLog {
                                     contents: item.contents
                                 })
                             }
-                            .border({ width: 1, color: '#cccccc', radius: 8 })
+                            .width('90%')
+                            .margin({ left: '5%', right: '5%' })
+                            .border({ width: '1.00vp', color: '#cccccc', radius: 8 })
                         })
                     }
                 }

@@ -6,11 +6,13 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { JSON, util } from '@kit.ArkTS';
 import { medicineLogin } from '../../common/function/medicineLogin';
 import { LoginRequestData } from '../../common/interface/medicineLogin';
+import { preferences } from '@kit.ArkData';
 
 @Entry
 @Component
 @Preview
 export struct Login {
+
     @State avatarUri: string|undefined = '';
     @State nickName: string|undefined = '';
 
@@ -30,17 +32,29 @@ export struct Login {
                         promptAction.showToast({ message: '登录失败，请重试' });
                         return;
                     }
+                    const token = result.token
+                    const user_id = result.user.id
+                    const huawei_id = result.user.huawei_id
+                    const phone = result.user.phone_num
 
-                    try {
-                        PersistentStorage.persistProp('token', result.token);
-                    } catch (e) {
-                        promptAction.showToast({ message: 'Token保存失败' });
-                        return;
-                    }
+                    PersistentStorage.persistProp('token', token);
+                    PersistentStorage.persistProp('user_id', user_id);
+                    PersistentStorage.persistProp('huawei_id', huawei_id);
+                    AppStorage.setOrCreate('phone', phone);
 
-                    AppStorage.setOrCreate('huaweiID', result?.user.huawei_id)
-                    AppStorage.setOrCreate('user_id', result?.user.id)
-                    AppStorage.setOrCreate('phone', result?.user.phone_num)
+                    // AppStorage.setOrCreate('token', result.token);
+                    // PersistentStorage.persistProp('token', result.token);
+                    // AppStorage.setOrCreate('token', result.token);
+                    //
+                    // AppStorage.setOrCreate('huaweiID', result.user.huawei_id)
+                    // PersistentStorage.persistProp('huaweiID', result.user.huawei_id);
+                    //
+                    // AppStorage.setOrCreate('user_id', result.user.id)
+                    // PersistentStorage.persistProp('user_id', result.user.id);
+                    //
+                    // AppStorage.setOrCreate('phone', result?.user.phone_num)
+                    // PersistentStorage.persistProp('phone', result.user.phone_num);
+
                     router.pushUrl({ url: 'pages/Dashboard/Dashboard'})
                 }
             })
