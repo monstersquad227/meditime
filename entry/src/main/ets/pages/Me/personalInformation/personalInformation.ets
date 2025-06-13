@@ -70,6 +70,8 @@ struct personalInformation {
             Button($r('app.string.LogOut'))
                 .width('90%')
                 .height('50.00vp')
+                .backgroundColor('rgba(255, 0, 0, 0.15)')// 半透明红色背景
+                .fontColor('rgba(255, 0, 0, 0.9)')// 较深红色文字
                 .onClick(async () => {
                     await Promise.all([
                         PersistentStorage.deleteProp('token'),
@@ -77,7 +79,7 @@ struct personalInformation {
                         PersistentStorage.deleteProp('huawei_id'),
                         PersistentStorage.deleteProp('phone')
                     ])
-                    router.replaceUrl({url: 'pages/Login/Login'})
+                    router.replaceUrl({ url: 'pages/Login/Login' })
                 })
 
         }.height('100%').width('100%')
