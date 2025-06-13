@@ -1,4 +1,4 @@
-import { router } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
 import { CreateCourse } from '../../../common/function/medicineCourse';
 import { CreateCourseData } from '../../../common/interface/medicineCourse';
 
@@ -288,9 +288,9 @@ struct course {
     private generateCourseStartTime(): string {
         let yearStr = this.selectedDate.getFullYear().toString()
         let year = String(yearStr).padStart(2, '0')
-        let monthStr = this.selectedDate.getMonth().toString()
+        let monthStr = (this.selectedDate.getMonth() + 1).toString()
         let month = String(monthStr).padStart(2, '0')
-        let dayStr = this.selectedDate.getDay().toString()
+        let dayStr = this.selectedDate.getDate().toString()
         let day = String(dayStr).padStart(2, '0')
         let time = this.courseStartTimes[0]
         return `${year}-${month}-${day} ${time}`

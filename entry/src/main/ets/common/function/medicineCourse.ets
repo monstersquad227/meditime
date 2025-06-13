@@ -4,6 +4,7 @@ import { CreateCourseData,
     CreateCourseResponse,
     ListCourseData, ListCourseResponse } from "../interface/medicineCourse";
 import { promptAction } from "@kit.ArkUI";
+import { dealAllError } from "./error";
 
 export async function ListCourse(): Promise<ListCourseData[]> {
     let httpRequest = http.createHttp();
@@ -84,7 +85,8 @@ export async function CreateCourse(data: CreateCourseData): Promise<void> {
             }
         })
     } catch (error) {
-        promptAction.showToast({ message: 'Network error' });
+        dealAllError(error)
+        // promptAction.showToast({ message: 'Network error' });
         return;
     }
 }
