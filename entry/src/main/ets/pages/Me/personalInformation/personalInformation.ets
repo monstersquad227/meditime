@@ -1,11 +1,51 @@
 import { router } from '@kit.ArkUI';
+import { authentication } from '@kit.AccountKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { util } from '@kit.ArkTS';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { dealAllError } from '../../../common/function/error';
 
 @Entry
 struct personalInformation {
-    @StorageProp('nickname') nickname: string = AppStorage.get('nickname') ?? '默认昵称';
+    @StorageProp('nickname') nickname: string | undefined = AppStorage.get('nickname') ?? '默认昵称';
     @StorageProp('phone') phone: string = AppStorage.get('phone') ?? '18888888888';
     @State inputText: string = '';
     @State type: string = '';
+    @State avatarUri: string | undefined = '';
+
+    aboutToAppear(): void {
+        const authRequest = new authentication.HuaweiIDProvider().createAuthorizationWithHuaweiIDRequest();
+        authRequest.scopes = ['profile'];
+        authRequest.forceAuthorization = true;
+        authRequest.state = util.generateRandomUUID();
+
+        try {
+            const controller =
+                new authentication.AuthenticationController(this.getUIContext().getHostContext());
+            controller.executeRequest(authRequest).then((data) => {
+                const authorizationWithHuaweiIDResponse =
+                    data as authentication.AuthorizationWithHuaweiIDResponse;
+                const state = authorizationWithHuaweiIDResponse?.state;
+                if (state && authRequest.state !== state) {
+                    hilog.error(0x0000, 'testTag',
+                        `Failed to authorize. The state is different, response state: ${state}`);
+                    return;
+                }
+                hilog.info(0x0000, 'testTag', 'Succeeded in authentication.');
+                const authorizationWithHuaweiIDCredential = authorizationWithHuaweiIDResponse?.data;
+                const avatarUri = authorizationWithHuaweiIDCredential?.avatarUri;
+                const nickName = authorizationWithHuaweiIDCredential?.nickName;
+                const authorizationCode = authorizationWithHuaweiIDCredential?.authorizationCode;
+                this.nickname = nickName
+                this.avatarUri = avatarUri
+                // 开发者处理avatarUri, nickName, authorizationCode
+            }).catch((err: BusinessError) => {
+                dealAllError(err);
+            });
+        } catch (error) {
+            dealAllError(error);
+        }
+    }
 
     build() {
         Column() {
@@ -23,9 +63,10 @@ struct personalInformation {
                 Row() {
                     Text('头像').margin({ left: '10.00vp' })
                     Blank().layoutWeight(1)
-                    Image($r('app.media.circle'))
+                    Image(this.avatarUri ? this.avatarUri : $r('app.media.circle'))
                         .width('30.00vp')
                         .height('30.00vp')
+                        .border({ radius: 50 })
                         .margin({ right: '10.00vp' })
                 }
                 .width('90%')
@@ -37,11 +78,6 @@ struct personalInformation {
                     Text('昵称').margin({ left: '10.00vp' })
                     Blank().layoutWeight(1)
                     Text(this.nickname).margin({ right: '10.00vp' })
-                        .onClick(() => {
-                            this.inputText = this.nickname
-                            this.type = 'nickname'
-                            // this.dialogController.open()
-                        })
                 }
                 .width('90%')
                 .height('50.00vp')
@@ -52,11 +88,6 @@ struct personalInformation {
                     Text('手机号').margin({ left: '10.00vp' })
                     Blank().layoutWeight(1)
                     Text(this.phone).margin({ right: '10.00vp' })
-                        .onClick(() => {
-                            this.inputText = this.phone
-                            this.type = 'phone'
-                            // this.dialogController.open()
-                        })
                 }
                 .width('90%')
                 .height('50.00vp')

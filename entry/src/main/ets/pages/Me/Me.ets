@@ -1,12 +1,54 @@
 import { router } from "@kit.ArkUI";
+import { authentication } from "@kit.AccountKit";
+import { util } from '@kit.ArkTS';
+import { hilog } from "@kit.PerformanceAnalysisKit";
+import { BusinessError } from "@kit.BasicServicesKit";
+import { dealAllError } from "../../common/function/error";
+
 
 @Component
 export struct Me {
-    @StorageProp('nickname') nickname: string = AppStorage.get('nickname') ?? '默认昵称';
+    @StorageProp('nickname') nickname: string | undefined = AppStorage.get('nickname') ?? '默认昵称';
+    @State avatarUri: string | undefined = ''
+
+    aboutToAppear(): void {
+        const authRequest = new authentication.HuaweiIDProvider().createAuthorizationWithHuaweiIDRequest();
+        authRequest.scopes = ['profile'];
+        authRequest.forceAuthorization = true;
+        authRequest.state = util.generateRandomUUID();
+
+        try {
+            const controller =
+                new authentication.AuthenticationController(this.getUIContext().getHostContext());
+            controller.executeRequest(authRequest).then((data) => {
+                const authorizationWithHuaweiIDResponse =
+                    data as authentication.AuthorizationWithHuaweiIDResponse;
+                const state = authorizationWithHuaweiIDResponse?.state;
+                if (state && authRequest.state !== state) {
+                    hilog.error(0x0000, 'testTag',
+                        `Failed to authorize. The state is different, response state: ${state}`);
+                    return;
+                }
+                hilog.info(0x0000, 'testTag', 'Succeeded in authentication.');
+                const authorizationWithHuaweiIDCredential = authorizationWithHuaweiIDResponse?.data;
+                const avatarUri = authorizationWithHuaweiIDCredential?.avatarUri;
+                const nickName = authorizationWithHuaweiIDCredential?.nickName;
+                const authorizationCode = authorizationWithHuaweiIDCredential?.authorizationCode;
+                this.nickname = nickName
+                this.avatarUri = avatarUri
+                // 开发者处理avatarUri, nickName, authorizationCode
+            }).catch((err: BusinessError) => {
+                dealAllError(err);
+            });
+        } catch (error) {
+            dealAllError(error);
+        }
+    }
 
     build() {
         Column({ space: '20.00vp' }) {
-            Image($r('app.media.circle'))
+            Image(this.avatarUri ? this.avatarUri : $r('app.media.circle'))
+                .border({ radius: 50 })
                 .width('80')
                 .height('80')
                 .margin({
@@ -14,9 +56,6 @@ export struct Me {
                 })
 
             Text(this.nickname)
-                .onClick(() => {
-                    AlertDialog.show({ title: '昵称', message: '获取昵称'})
-                })
 
             Row() {
                 Column({ space: '8.00vp' }) {
