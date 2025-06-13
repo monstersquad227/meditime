@@ -14,6 +14,9 @@ export struct Me {
                 })
 
             Text(this.nickname)
+                .onClick(() => {
+                    AlertDialog.show({ title: '昵称', message: '获取昵称'})
+                })
 
             Row() {
                 Column({ space: '8.00vp' }) {

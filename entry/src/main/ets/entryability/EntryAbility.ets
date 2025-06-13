@@ -19,10 +19,11 @@ export default class EntryAbility extends UIAbility {
         hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onWindowStageCreate');
 
         // windowStage.loadContent('pages/Index', (err) => {
-        windowStage.loadContent('pages/Index', (err) => {
+        windowStage.loadContent('pages/Index',  err => {
             PersistentStorage.persistProp('token', '');
             PersistentStorage.persistProp('user_id', '');
             PersistentStorage.persistProp('huawei_id', '');
+            PersistentStorage.persistProp('phone', '');
 
             if (err.code) {
                 hilog.error(DOMAIN, 'testTag', 'Failed to load the content. Cause: %{public}s', JSON.stringify(err));

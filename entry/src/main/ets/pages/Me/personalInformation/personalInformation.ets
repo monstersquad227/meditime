@@ -70,11 +70,14 @@ struct personalInformation {
             Button($r('app.string.LogOut'))
                 .width('90%')
                 .height('50.00vp')
-                .onClick(() => {
-                    PersistentStorage.deleteProp('token')
-                    PersistentStorage.deleteProp('user_id')
-                    PersistentStorage.deleteProp('huawei_id')
-                    router.pushUrl({url: 'pages/Login/Login'})
+                .onClick(async () => {
+                    await Promise.all([
+                        PersistentStorage.deleteProp('token'),
+                        PersistentStorage.deleteProp('user_id'),
+                        PersistentStorage.deleteProp('huawei_id'),
+                        PersistentStorage.deleteProp('phone')
+                    ])
+                    router.replaceUrl({url: 'pages/Login/Login'})
                 })
 
         }.height('100%').width('100%')

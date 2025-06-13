@@ -6,16 +6,14 @@ import { hilog } from '@kit.PerformanceAnalysisKit';
 import { JSON, util } from '@kit.ArkTS';
 import { medicineLogin } from '../../common/function/medicineLogin';
 import { LoginRequestData } from '../../common/interface/medicineLogin';
-import { preferences } from '@kit.ArkData';
+import { dataSharePredicates, preferences } from '@kit.ArkData';
 
 @Entry
 @Component
 @Preview
 export struct Login {
-
-    @State avatarUri: string|undefined = '';
-    @State nickName: string|undefined = '';
-
+    @State avatarUri: string | undefined = '';
+    @State nickName: string | undefined = '';
     controller: loginComponentManager.LoginWithHuaweiIDButtonController =
         new loginComponentManager.LoginWithHuaweiIDButtonController()
             .setAgreementStatus(loginComponentManager.AgreementStatus.NOT_ACCEPTED)
@@ -37,25 +35,20 @@ export struct Login {
                     const huawei_id = result.user.huawei_id
                     const phone = result.user.phone_num
 
-                    PersistentStorage.persistProp('token', token);
-                    PersistentStorage.persistProp('user_id', user_id);
-                    PersistentStorage.persistProp('huawei_id', huawei_id);
-                    AppStorage.setOrCreate('phone', phone);
 
-                    // AppStorage.setOrCreate('token', result.token);
-                    // PersistentStorage.persistProp('token', result.token);
-                    // AppStorage.setOrCreate('token', result.token);
-                    //
-                    // AppStorage.setOrCreate('huaweiID', result.user.huawei_id)
-                    // PersistentStorage.persistProp('huaweiID', result.user.huawei_id);
-                    //
-                    // AppStorage.setOrCreate('user_id', result.user.id)
-                    // PersistentStorage.persistProp('user_id', result.user.id);
-                    //
-                    // AppStorage.setOrCreate('phone', result?.user.phone_num)
-                    // PersistentStorage.persistProp('phone', result.user.phone_num);
+                    AppStorage.setOrCreate('token', token)
+                    PersistentStorage.persistProp('token', token)
 
-                    router.pushUrl({ url: 'pages/Dashboard/Dashboard'})
+                    AppStorage.setOrCreate('user_id', user_id)
+                    PersistentStorage.persistProp('user_id', user_id)
+
+                    AppStorage.setOrCreate('huawei_id', huawei_id)
+                    PersistentStorage.persistProp('huawei_id', huawei_id)
+
+                    AppStorage.setOrCreate('phone', phone)
+                    PersistentStorage.persistProp('phone', phone)
+
+                    router.pushUrl({ url: 'pages/Dashboard/Dashboard' })
                 }
             })
             .onClickEvent((error, clickEvent) => {
@@ -154,9 +147,9 @@ export struct Login {
                                         if (item.tag === '华为账号用户认证协议') {
                                             this.openURL('https://privacy.consumer.huawei.com/legal/id/authentication-terms.htm?code=CN&language=zh-CN')
                                         } else if (item.tag === '隐私协议') {
-                                            router.pushUrl({ url: 'pages/Login/Privacy/PrivacyPolicy'})
+                                            router.pushUrl({ url: 'pages/Login/Privacy/PrivacyPolicy' })
                                         } else {
-                                            router.pushUrl({ url: 'pages/Login/Privacy/UserService'})
+                                            router.pushUrl({ url: 'pages/Login/Privacy/UserService' })
                                         }
                                     })
                             }
@@ -195,5 +188,4 @@ export struct Login {
             promptAction.showToast({ message: '异常: ' + JSON.stringify(err) });
         }
     }
-
 }
