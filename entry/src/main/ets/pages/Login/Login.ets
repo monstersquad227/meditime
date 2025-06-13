@@ -1,17 +1,14 @@
-import { authentication, loginComponentManager, LoginWithHuaweiIDButton } from '@kit.AccountKit';
+import { loginComponentManager, LoginWithHuaweiIDButton } from '@kit.AccountKit';
 import { promptAction, router } from '@kit.ArkUI';
 import { common, Want } from '@kit.AbilityKit';
 import { BusinessError } from '@kit.BasicServicesKit';
-import { hilog } from '@kit.PerformanceAnalysisKit';
-import { JSON, util } from '@kit.ArkTS';
+import { JSON } from '@kit.ArkTS';
 import { medicineLogin } from '../../common/function/medicineLogin';
 import { LoginRequestData } from '../../common/interface/medicineLogin';
-import { dataSharePredicates, preferences } from '@kit.ArkData';
 
 @Entry
 @Component
-@Preview
-export struct Login {
+struct Login {
     @State avatarUri: string | undefined = '';
     @State nickName: string | undefined = '';
     controller: loginComponentManager.LoginWithHuaweiIDButtonController =
