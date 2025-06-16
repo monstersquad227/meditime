@@ -1,12 +1,16 @@
 {
     "src": [
-		"pages/Index",
-		"pages/Login/Login",
-		"pages/Dashboard/Dashboard",
-		"pages/MyMeds/course/course",
-		"pages/Me/featureFeedback/featureFeedback",
-		"pages/Me/personalInformation/personalInformation",
-		"pages/Login/Privacy/UserService",
-		"pages/Login/Privacy/PrivacyPolicy"
+        "pages/Index",
+        "pages/Login/Login",
+        "pages/Dashboard/Dashboard",
+        "pages/MyMeds/course/course",
+        "pages/Me/faq/faq",
+        "pages/Me/faq/aboutApp",
+        "pages/Me/faq/modifyPersonalInfomation",
+        "pages/Me/faq/authorCommunicate",
+        "pages/Me/faq/punchCardProblem",
+        "pages/Me/personalInformation/personalInformation",
+        "pages/Login/Privacy/UserService",
+        "pages/Login/Privacy/PrivacyPolicy"
     ]
 }

@@ -69,7 +69,7 @@ export struct Me {
                 }
                 .margin({ left: '10.00vp' })
                 .onClick(() => {
-                    router.pushUrl({ url: 'pages/Me/featureFeedback/featureFeedback' })
+                    router.pushUrl({ url: 'pages/Me/faq/faq' })
                 })
 
                 Blank().layoutWeight(1)
