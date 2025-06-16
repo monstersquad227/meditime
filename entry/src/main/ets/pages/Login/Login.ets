@@ -5,6 +5,8 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { JSON } from '@kit.ArkTS';
 import { medicineLogin } from '../../common/function/medicineLogin';
 import { LoginRequestData } from '../../common/interface/medicineLogin';
+import { openBrowser } from '../../common/function/openBrowser';
+import { HuaweiAccountUserAuthenticationProtocolAddress } from '../../common/constant/constant';
 
 @Entry
 @Component
@@ -142,7 +144,10 @@ struct Login {
                                     .focusOnTouch(true)
                                     .onClick(() => {
                                         if (item.tag === '华为账号用户认证协议') {
-                                            this.openURL('https://privacy.consumer.huawei.com/legal/id/authentication-terms.htm?code=CN&language=zh-CN')
+                                            const context =
+                                                this.getUIContext().getHostContext() as common.UIAbilityContext
+                                            openBrowser(context, HuaweiAccountUserAuthenticationProtocolAddress)
+                                            // this.openURL('https://privacy.consumer.huawei.com/legal/id/authentication-terms.htm?code=CN&language=zh-CN')
                                         } else if (item.tag === '隐私协议') {
                                             router.pushUrl({ url: 'pages/Login/Privacy/PrivacyPolicy' })
                                         } else {

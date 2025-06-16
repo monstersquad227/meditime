@@ -1,9 +1,12 @@
-import { router } from "@kit.ArkUI";
+import { promptAction, router } from "@kit.ArkUI";
 import { authentication } from "@kit.AccountKit";
 import { util } from '@kit.ArkTS';
 import { hilog } from "@kit.PerformanceAnalysisKit";
 import { BusinessError } from "@kit.BasicServicesKit";
 import { dealAllError } from "../../common/function/error";
+import { common, Want } from "@kit.AbilityKit";
+import { openBrowser } from "../../common/function/openBrowser";
+import { QuestionnaireAddress } from "../../common/constant/constant";
 
 
 @Component
@@ -33,7 +36,7 @@ export struct Me {
                 const authorizationWithHuaweiIDCredential = authorizationWithHuaweiIDResponse?.data;
                 const avatarUri = authorizationWithHuaweiIDCredential?.avatarUri;
                 const nickName = authorizationWithHuaweiIDCredential?.nickName;
-                const authorizationCode = authorizationWithHuaweiIDCredential?.authorizationCode;
+                // const authorizationCode = authorizationWithHuaweiIDCredential?.authorizationCode;
                 this.nickname = nickName
                 this.avatarUri = avatarUri
                 // 开发者处理avatarUri, nickName, authorizationCode
@@ -46,13 +49,13 @@ export struct Me {
     }
 
     build() {
-        Column({ space: '20.00vp' }) {
+        Column({ space: '40.00vp' }) {
             Image(this.avatarUri ? this.avatarUri : $r('app.media.circle'))
                 .border({ radius: 50 })
                 .width('80')
                 .height('80')
                 .margin({
-                    top: 50
+                    top: '100.00vp'
                 })
 
             Text(this.nickname)
@@ -91,26 +94,12 @@ export struct Me {
                 }
                 .margin({ right: '10.00vp' })
                 .onClick(() => {
-                    router.pushUrl({ url: 'pages/Me/featureFeedback/featureFeedback' })
+                    const context = this.getUIContext().getHostContext() as common.UIAbilityContext
+                    openBrowser(context, QuestionnaireAddress);
                 })
             }
             .width('90%')
             .height('100.00vp')
-            .border({ width: '1.00vp', color: '#cccccc', radius: 8 })
-            .backgroundColor('#f9f9f9')
-
-            Row() {
-                Text($r('app.string.SupportAuthor')).margin({ left: '10.00vp' })
-
-                Blank().layoutWeight(1)
-
-                Image($r('app.media.right_grey'))
-                    .width('16.00vp')
-                    .height('16.00vp')
-                    .margin({ right: '10.00vp' })
-            }
-            .width('90%')
-            .height('50.00vp')
             .border({ width: '1.00vp', color: '#cccccc', radius: 8 })
             .backgroundColor('#f9f9f9')
 
