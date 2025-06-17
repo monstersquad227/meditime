@@ -144,10 +144,13 @@ struct Login {
                                     .focusOnTouch(true)
                                     .onClick(() => {
                                         if (item.tag === '华为账号用户认证协议') {
-                                            const context =
-                                                this.getUIContext().getHostContext() as common.UIAbilityContext
-                                            openBrowser(context, HuaweiAccountUserAuthenticationProtocolAddress)
-                                            // this.openURL('https://privacy.consumer.huawei.com/legal/id/authentication-terms.htm?code=CN&language=zh-CN')
+                                            router.pushUrl({
+                                                url: 'pages/common/WebPage',
+                                                params: {
+                                                    url: HuaweiAccountUserAuthenticationProtocolAddress,
+                                                    title: '华为账号用户认证协议'
+                                                }
+                                            })
                                         } else if (item.tag === '隐私协议') {
                                             router.pushUrl({ url: 'pages/Login/Privacy/PrivacyPolicy' })
                                         } else {

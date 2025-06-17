@@ -6,7 +6,7 @@ import { BusinessError } from "@kit.BasicServicesKit";
 import { dealAllError } from "../../common/function/error";
 import { common, Want } from "@kit.AbilityKit";
 import { openBrowser } from "../../common/function/openBrowser";
-import { QuestionnaireAddress } from "../../common/constant/constant";
+import { HuaweiAccountUserAuthenticationProtocolAddress, QuestionnaireAddress } from "../../common/constant/constant";
 
 
 @Component
@@ -94,8 +94,12 @@ export struct Me {
                 }
                 .margin({ right: '10.00vp' })
                 .onClick(() => {
-                    const context = this.getUIContext().getHostContext() as common.UIAbilityContext
-                    openBrowser(context, QuestionnaireAddress);
+                    // const context = this.getUIContext().getHostContext() as common.UIAbilityContext
+                    // openBrowser(context, QuestionnaireAddress);
+                    router.pushUrl({
+                        url: 'pages/common/WebPage',
+                        params: { url: QuestionnaireAddress, title: $r('app.string.Feedback') }
+                    })
                 })
             }
             .width('90%')

@@ -1,5 +1,6 @@
 {
     "src": [
+        "pages/common/WebPage",
         "pages/Index",
         "pages/Login/Login",
         "pages/Dashboard/Dashboard",
