@@ -1,4 +1,5 @@
-import { translateMedicineTime, translateType } from "../../../common/function/medicineCourse";
+import { DeleteCourse, translateMedicineTime, translateType } from "../../../common/function/medicineCourse";
+import { DeleteCourseData } from "../../../common/interface/medicineCourse";
 
 @Component
 export struct listIterm {
@@ -25,6 +26,30 @@ export struct listIterm {
 
                     Text(this.splitDate(this.course_start_time) + ' 开始')
                         .alignSelf(ItemAlign.Start)
+
+                    Row() {
+                        Button('修改方案')
+                            .height('30.00vp')
+                            .width('50%')
+                            .backgroundColor(Color.Transparent)
+                            .border({ width: 0 })
+                            .fontColor(Color.Blue)
+                            .onClick(() => {
+                            })
+                        Button('结束用药')
+                            .height('30.00vp')
+                            .width('50%')
+                            .backgroundColor(Color.Transparent)
+                            .border({ width: 0 })
+                            .fontColor(Color.Blue)
+                            .onClick(() => {
+                                const data: DeleteCourseData = {
+                                    medicine_name: this.medicine_name,
+                                    user_id: Number(AppStorage.get('user_id'))
+                                }
+                                DeleteCourse(data)
+                            })
+                    }
                 }
             }
             .padding(10)

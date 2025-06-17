@@ -28,7 +28,7 @@ export function dealAllError(error: BusinessError): void {
         promptAction.showToast({ message: '用户未同意协议' })
         // 用户未同意协议
     } else {
-        promptAction.showToast({ message: '应用登录失败，请尝试使用其他方式登录' })
+        promptAction.showToast({ message: error.message })
         // 应用登录失败，请尝试使用其他方式登录
     }
 }

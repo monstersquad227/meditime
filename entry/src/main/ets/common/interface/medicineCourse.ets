@@ -33,3 +33,14 @@ export interface CreateCourseData {
     plan_time: string;
     frequency: number
 }
+
+export interface DeleteCourseData {
+    user_id?: number,
+    medicine_name: string
+}
+
+export interface DeleteCourseResponse {
+    code: number,
+    message: string,
+    result: number
+}

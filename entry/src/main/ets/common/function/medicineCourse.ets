@@ -1,11 +1,17 @@
 import { http } from "@kit.NetworkKit";
 import { baseURL } from "../constant/constant";
-import { CreateCourseData,
+import {
+    CreateCourseData,
     CreateCourseResponse,
-    ListCourseData, ListCourseResponse } from "../interface/medicineCourse";
+    DeleteCourseData,
+    DeleteCourseResponse,
+    ListCourseData,
+    ListCourseResponse
+} from "../interface/medicineCourse";
 import { promptAction } from "@kit.ArkUI";
 import { dealAllError } from "./error";
 
+// 查询用药方案
 export async function ListCourse(): Promise<ListCourseData[]> {
     let httpRequest = http.createHttp();
     let URL = baseURL + '/course';
@@ -60,6 +66,7 @@ export function translateType(type: number): string {
     }
 }
 
+// 创建用药方案
 export async function CreateCourse(data: CreateCourseData): Promise<void> {
     let httpRequest = http.createHttp();
     let URL = baseURL + '/course';
@@ -89,4 +96,35 @@ export async function CreateCourse(data: CreateCourseData): Promise<void> {
         // promptAction.showToast({ message: 'Network error' });
         return;
     }
+}
+
+export async function DeleteCourse(data: DeleteCourseData): Promise<void> {
+    let httpRequest = http.createHttp();
+    let URL = baseURL + '/course';
+
+    try {
+        await httpRequest.request(URL, {
+            method: http.RequestMethod.DELETE,
+            connectTimeout: 3000,
+            readTimeout: 3000,
+            header: {
+                'Content-Type': 'application/json',
+                'token': AppStorage.get('token')
+            },
+            extraData: data,
+            expectDataType: http.HttpDataType.OBJECT
+        }).then((res: http.HttpResponse) => {
+            let result = res.result as DeleteCourseResponse
+            
+            if (result.code !== 0) {
+                promptAction.showToast({ message: result.message });
+                return;
+            } else {
+                promptAction.showToast({ message: '结束成功' });
+            }
+        })
+    } catch (err) {
+        dealAllError(err)
+    }
+    ;
 }
