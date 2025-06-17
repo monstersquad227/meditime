@@ -9,6 +9,10 @@ export struct MyMeds {
     @State courseData: ListCourseData[] = [];
 
     async aboutToAppear(): Promise<void> {
+        this.refreshCourseData()
+    }
+
+    private async refreshCourseData() {
         this.courseData = await ListCourse()
     }
 
@@ -36,7 +40,8 @@ export struct MyMeds {
                                         frequency: item.frequency,
                                         medicine_timing: item.medicine_timing,
                                         medicine_type: item.medicine_type,
-                                        course_start_time: item.course_start_time
+                                        course_start_time: item.course_start_time,
+                                        onDeletedWrapper: { callback: async () => await this.refreshCourseData() }
                                     })
                                 }
                                 .width('90%')

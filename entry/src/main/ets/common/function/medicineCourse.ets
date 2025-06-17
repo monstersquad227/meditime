@@ -115,7 +115,7 @@ export async function DeleteCourse(data: DeleteCourseData): Promise<void> {
             expectDataType: http.HttpDataType.OBJECT
         }).then((res: http.HttpResponse) => {
             let result = res.result as DeleteCourseResponse
-            
+
             if (result.code !== 0) {
                 promptAction.showToast({ message: result.message });
                 return;

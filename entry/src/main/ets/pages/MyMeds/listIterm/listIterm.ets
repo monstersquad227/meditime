@@ -1,6 +1,10 @@
 import { DeleteCourse, translateMedicineTime, translateType } from "../../../common/function/medicineCourse";
 import { DeleteCourseData } from "../../../common/interface/medicineCourse";
 
+interface GeneratedTypeLiteralInterface_1 {
+    callback: () => void;
+}
+
 @Component
 export struct listIterm {
     @Prop medicine_name: string = '';
@@ -8,6 +12,10 @@ export struct listIterm {
     @Prop medicine_timing: number = 0;
     @Prop medicine_type: number = 0;
     @Prop course_start_time: string = '';
+    @Prop onDeletedWrapper: GeneratedTypeLiteralInterface_1 = {
+        callback: () => {
+        }
+    };
 
     build() {
         Column() {
@@ -42,12 +50,14 @@ export struct listIterm {
                             .backgroundColor(Color.Transparent)
                             .border({ width: 0 })
                             .fontColor(Color.Blue)
-                            .onClick(() => {
+                            .onClick(async () => {
                                 const data: DeleteCourseData = {
                                     medicine_name: this.medicine_name,
                                     user_id: Number(AppStorage.get('user_id'))
                                 }
                                 DeleteCourse(data)
+
+                                this.onDeletedWrapper.callback()
                             })
                     }
                 }
