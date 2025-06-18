@@ -17,7 +17,7 @@ export struct DailyDose {
     }
 
     async refreshPlanData() {
-        promptAction.showToast({ message: this.selectedDate })
+        // promptAction.showToast({ message: this.selectedDate })
         // this.planData = await ListPlan()
         this.planData = await ListPlanV2(this.selectedDate)
     }

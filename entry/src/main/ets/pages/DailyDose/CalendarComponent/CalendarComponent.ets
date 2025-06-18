@@ -1,3 +1,5 @@
+import { getDate } from "../../../common/function/date";
+
 interface todayInterface {
     year: number;
     month: number;
@@ -62,6 +64,8 @@ export struct CalendarComponent {
                 .borderRadius(6)
                 .onClick(() => {
                     this.goToday()
+                    this.selectedDate = getDate()
+                    this.onUpdateDateWrapper.callback()
                 })
             }
 
