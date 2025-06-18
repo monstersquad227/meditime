@@ -7,8 +7,17 @@ import { router } from "@kit.ArkUI";
 export struct MyMeds {
     @State isRefreshing: boolean = false;
     @State courseData: ListCourseData[] = [];
+    @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0;
+
+    async refreshFlagUpdate() {
+        this.refreshCourseData()
+    }
 
     async aboutToAppear(): Promise<void> {
+        this.refreshCourseData()
+    }
+
+    async onPageShow(): Promise<void> {
         this.refreshCourseData()
     }
 

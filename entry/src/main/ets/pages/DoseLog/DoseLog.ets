@@ -6,6 +6,11 @@ import { listIterm } from "./listIterm/listIterm";
 export struct DoseLog {
     @State recordIterm: Array<recordListData> = [];
     @State isRefreshing: boolean = false;
+    @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0
+
+    async refreshFlagUpdate() {
+        this.recordIterm = await recordList()
+    }
 
     async aboutToAppear(): Promise<void> {
         this.recordIterm = await recordList()

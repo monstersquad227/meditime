@@ -171,11 +171,13 @@ struct updateCourse {
 
                 ListItem() {
                     Row() {
-                        Button('保存').width('100%')
+                        Button('保存').width('100%').onClick(() => {
+                            router.back()
+                        })
                     }.margin({ left: '5%', right: '5%' })
                 }
             }
-            .margin({ top: '20.00vp', bottom: '100.00vp' })
+            .margin({ top: '20.00vp', bottom: '50.00vp' })
         }
     }
 }

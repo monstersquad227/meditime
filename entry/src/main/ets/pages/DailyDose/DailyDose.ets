@@ -8,6 +8,11 @@ import { router } from '@kit.ArkUI';
 export struct DailyDose {
     @State isRefreshing: boolean = false;
     @State planData: ListPlanData[] = [];
+    @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0
+
+    async refreshFlagUpdate() {
+        this.planData = await ListPlan()
+    }
 
     async aboutToAppear(): Promise<void> {
         this.planData = await ListPlan()

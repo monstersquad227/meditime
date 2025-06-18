@@ -9,6 +9,7 @@ import { promptAction } from '@kit.ArkUI';
 @Preview
 struct Dashboard {
     @State currentIndex: number = 0;
+    @State DailyDoseRefreshFlag: number = 0;
 
     @Builder
     dashboardBuilder(title: string, targetIndex: number, selectedIcon: Resource, unselectIcon: Resource) {
@@ -32,17 +33,17 @@ struct Dashboard {
     build() {
         Tabs({ barPosition: BarPosition.End }) {
             TabContent() {
-                DailyDose()
+                DailyDose({ refreshFlag: this.DailyDoseRefreshFlag })
             }
             .tabBar(this.dashboardBuilder("吃药打卡", 0, $r('app.media.tab1Icon'), $r('app.media.tab1Icon')))
 
             TabContent() {
-                MyMeds()
+                MyMeds({ refreshFlag: this.DailyDoseRefreshFlag })
             }
             .tabBar(this.dashboardBuilder('我的用药', 1, $r('app.media.tab1Icon'), $r('app.media.tab1Icon')))
 
             TabContent() {
-                DoseLog()
+                DoseLog({ refreshFlag: this.DailyDoseRefreshFlag })
             }
             .tabBar(this.dashboardBuilder('用药记录', 2, $r('app.media.tab1Icon'), $r('app.media.tab1Icon')))
 
@@ -55,6 +56,16 @@ struct Dashboard {
         .scrollable(false)
         .onChange((val) => {
             this.currentIndex = val
+            // 刷新flag
+            if (val === 0) {
+                this.DailyDoseRefreshFlag++
+            } else if (val === 1) {
+                this.DailyDoseRefreshFlag++
+            } else if (val === 2) {
+                this.DailyDoseRefreshFlag++
+            } else if (val === 3) {
+                this.DailyDoseRefreshFlag++
+            }
         })
     }
 }
