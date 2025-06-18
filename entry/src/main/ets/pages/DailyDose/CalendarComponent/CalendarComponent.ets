@@ -4,6 +4,10 @@ interface todayInterface {
     day: number;
 }
 
+interface GeneratedTypeLiteralInterface_1 {
+    callback: () => void;
+}
+
 @Component
 export struct CalendarComponent {
     @State year: number = new Date().getFullYear();
@@ -16,6 +20,12 @@ export struct CalendarComponent {
         day: new Date().getDate()
     };
     @State selectedDay: number = this.today.day;
+    @Link selectedDate: string;
+    @Prop onUpdateDateWrapper: GeneratedTypeLiteralInterface_1 = {
+        callback: () => {
+        }
+    };
+
     build() {
         Column() {
             // 日期头
@@ -85,7 +95,10 @@ export struct CalendarComponent {
                                     const dateStr =
                                         `${this.year}-${this.month.toString().padStart(2, '0')}-${days.padStart(2,
                                             '0')}`;
-                                    AlertDialog.show({ title: 'Selected Date', message: dateStr })
+                                    this.selectedDate = dateStr;
+
+                                    this.onUpdateDateWrapper.callback()
+                                    // AlertDialog.show({ title: 'Selected Date', message: dateStr })
                                 }
                             })
                     }

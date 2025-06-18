@@ -1,21 +1,25 @@
-import { ListPlan } from '../../common/function/medicinePlan';
+import { ListPlan, ListPlanV2 } from '../../common/function/medicinePlan';
 import { ListPlanData } from '../../common/interface/medicinePlan';
 import { CalendarComponent } from './CalendarComponent/CalendarComponent'
 import { listIterm } from './listIterm/listIterm';
-import { router } from '@kit.ArkUI';
+import { promptAction, router } from '@kit.ArkUI';
+import { getDate } from '../../common/function/date';
 
 @Component
 export struct DailyDose {
+    @State selectedDate: string = getDate();
     @State isRefreshing: boolean = false;
     @State planData: ListPlanData[] = [];
-    @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0
+    @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0;
 
     async refreshFlagUpdate() {
         this.refreshPlanData()
     }
 
     async refreshPlanData() {
-        this.planData = await ListPlan()
+        promptAction.showToast({ message: this.selectedDate })
+        // this.planData = await ListPlan()
+        this.planData = await ListPlanV2(this.selectedDate)
     }
 
     async aboutToAppear(): Promise<void> {
@@ -29,7 +33,10 @@ export struct DailyDose {
                 promptText: '刷新中......'
             }) {
                 Column() {
-                    CalendarComponent()
+                    CalendarComponent({
+                        selectedDate: this.selectedDate,
+                        onUpdateDateWrapper: { callback: async () => await this.refreshPlanData() }
+                    })
                         .height('300.00vp')
                         .width('100%')
 
@@ -77,7 +84,8 @@ export struct DailyDose {
             }
             .onStateChange(async () => {
                 this.isRefreshing = true
-                this.planData = await ListPlan()
+                // this.planData = await ListPlan()
+                this.refreshPlanData()
                 setTimeout(() => {
                     this.isRefreshing = false
                 }, 1000)
