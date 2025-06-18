@@ -11,11 +11,15 @@ export struct DailyDose {
     @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0
 
     async refreshFlagUpdate() {
+        this.refreshPlanData()
+    }
+
+    async refreshPlanData() {
         this.planData = await ListPlan()
     }
 
     async aboutToAppear(): Promise<void> {
-        this.planData = await ListPlan()
+        this.refreshPlanData()
     };
 
     build() {
@@ -40,7 +44,8 @@ export struct DailyDose {
                                         amount: item.amount,
                                         type: item.type,
                                         plan_time: item.plan_time,
-                                        medicine_timing: item.medicine_timing
+                                        medicine_timing: item.medicine_timing,
+                                        onUpdateWrapper: { callback: async () => await this.refreshPlanData() }
                                     })
                                 }
                                 .width('90%')

@@ -2,6 +2,10 @@ import { translateMedicineTime } from "../../../common/function/medicineCourse";
 import { recordUpdate } from "../../../common/function/medicinePlanRecord";
 import { recordPutData } from "../../../common/interface/medicinePlanRecord";
 
+interface GeneratedTypeLiteralInterface_1 {
+    callback: () => void;
+}
+
 @Component
 export struct listIterm {
     @Prop medicine_name: string = '';
@@ -11,6 +15,10 @@ export struct listIterm {
     @Prop medicine_timing: number = 0;
     @Prop plan_id: number = 0
     @Prop is_checked: number = 0
+    @Prop onUpdateWrapper: GeneratedTypeLiteralInterface_1 = {
+        callback: () => {
+        }
+    };
 
     private generateActualTime(): string {
         let date = new Date()
@@ -18,7 +26,7 @@ export struct listIterm {
         let year = String(yearStr).padStart(2, '0')
         let monthStr = date.getMonth() + 1
         let month = String(monthStr.toString()).padStart(2, '0')
-        let dayStr = date.getDay() + 1
+        let dayStr = date.getDate() + 1
         let day = String(dayStr.toString()).padStart(2, '0')
         let hourStr = date.getHours().toString()
         let hour = String(hourStr).padStart(2, '0')
@@ -49,14 +57,16 @@ export struct listIterm {
                     .backgroundColor(this.is_checked === 0 ? null : Color.Grey)
                     .type(ButtonType.Normal)
                     .border({ radius: '16.00vp' })
-                    .onClick(() => {
+                    .onClick(async () => {
                         let body: recordPutData = {
                             plan_id: this.plan_id,
                             is_checked: this.is_checked === 0 ? 1 : 0,
                             actual_time: this.generateActualTime(),
                         }
-                        recordUpdate(body)
-                        AlertDialog.show({ title: 'body', message: JSON.stringify(body) })
+                        await recordUpdate(body)
+
+                        this.onUpdateWrapper.callback()
+                        // AlertDialog.show({ title: 'body', message: JSON.stringify(body) })
                         // CreatePlan(body)
                     })
                     .margin({ right: '20.00vp' })
