@@ -26,7 +26,7 @@ export struct listIterm {
         let year = String(yearStr).padStart(2, '0')
         let monthStr = date.getMonth() + 1
         let month = String(monthStr.toString()).padStart(2, '0')
-        let dayStr = date.getDate() + 1
+        let dayStr = date.getDate()
         let day = String(dayStr.toString()).padStart(2, '0')
         let hourStr = date.getHours().toString()
         let hour = String(hourStr).padStart(2, '0')
