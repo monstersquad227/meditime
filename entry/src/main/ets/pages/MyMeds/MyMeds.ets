@@ -41,6 +41,9 @@ export struct MyMeds {
                                         medicine_timing: item.medicine_timing,
                                         medicine_type: item.medicine_type,
                                         course_start_time: item.course_start_time,
+                                        plat_times: item.plan_times,
+                                        type: item.type,
+                                        amount: item.amount,
                                         onDeletedWrapper: { callback: async () => await this.refreshCourseData() }
                                     })
                                 }

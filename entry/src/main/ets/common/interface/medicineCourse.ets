@@ -4,7 +4,10 @@ export interface ListCourseData {
     medicine_type: number
     medicine_timing?: number
     course_start_time: string
-    frequency: number
+    frequency: number,
+    plan_times: string,
+    type: string,
+    amount: number
 }
 
 export interface ListCourseResponse {

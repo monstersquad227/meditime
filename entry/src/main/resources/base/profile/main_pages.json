@@ -5,6 +5,7 @@
         "pages/Login/Login",
         "pages/Dashboard/Dashboard",
         "pages/MyMeds/course/course",
+        "pages/MyMeds/course/updateCourse",
         "pages/Me/faq/faq",
         "pages/Me/faq/aboutApp",
         "pages/Me/faq/modifyPersonalInfomation",

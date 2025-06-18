@@ -1,5 +1,6 @@
 import { DeleteCourse, translateMedicineTime, translateType } from "../../../common/function/medicineCourse";
 import { DeleteCourseData } from "../../../common/interface/medicineCourse";
+import { router } from "@kit.ArkUI";
 
 interface GeneratedTypeLiteralInterface_1 {
     callback: () => void;
@@ -12,6 +13,9 @@ export struct listIterm {
     @Prop medicine_timing: number = 0;
     @Prop medicine_type: number = 0;
     @Prop course_start_time: string = '';
+    @Prop plat_times: string = '';
+    @Prop type: string = '';
+    @Prop amount: number = 0;
     @Prop onDeletedWrapper: GeneratedTypeLiteralInterface_1 = {
         callback: () => {
         }
@@ -43,6 +47,18 @@ export struct listIterm {
                             .border({ width: 0 })
                             .fontColor(Color.Blue)
                             .onClick(() => {
+                                router.pushUrl({
+                                    url: 'pages/MyMeds/course/updateCourse',
+                                    params: {
+                                        medicine_name: this.medicine_name,
+                                        frequency: this.frequency,
+                                        type: this.type,
+                                        plat_times: this.plat_times,
+                                        medicine_timing: this.medicine_timing,
+                                        medicine_type: this.medicine_type,
+                                        amount: this.amount
+                                    }
+                                })
                             })
                         Button('结束用药')
                             .height('30.00vp')
