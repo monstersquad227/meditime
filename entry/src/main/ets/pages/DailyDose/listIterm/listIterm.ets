@@ -58,16 +58,30 @@ export struct listIterm {
                     .backgroundColor(this.is_checked === 0 ? null : Color.Grey)
                     .type(ButtonType.Normal)
                     .border({ radius: '16.00vp' })
-                    .onClick(async () => {
+                    .onClick(() => {
                         let body: recordPutData = {
                             id: this.record_id,
                             plan_id: this.plan_id,
                             is_checked: this.is_checked === 0 ? 1 : 0,
                             actual_time: this.generateActualTime(),
                         }
-                        await recordUpdate(body)
+                        AlertDialog.show({
+                            message: '确定' + (this.is_checked === 0 ? '打卡' : '撤销打卡') + '吗？',
+                            buttons: [{
+                                value: '取消',
+                                action: () => {
+                                }
+                            }, {
+                                value: '确认',
+                                action: async () => {
+                                    await recordUpdate(body)
+                                    this.onUpdateWrapper.callback()
+                                }
+                            }]
+                        })
+                        // await recordUpdate(body)
+                        //
 
-                        this.onUpdateWrapper.callback()
                         // AlertDialog.show({ title: 'body', message: JSON.stringify(body) })
                         // CreatePlan(body)
                     })
