@@ -45,6 +45,7 @@ export struct DailyDose {
                             ForEach(this.planData, (item: ListPlanData) => {
                                 ListItem() {
                                     listIterm({
+                                        record_id: item.record_id,
                                         is_checked: item.is_checked,
                                         plan_id: item.plan_id,
                                         medicine_name: item.medicine_name,

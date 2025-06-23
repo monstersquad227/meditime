@@ -15,6 +15,7 @@ export struct listIterm {
     @Prop medicine_timing: number = 0;
     @Prop plan_id: number = 0
     @Prop is_checked: number = 0
+    @Prop record_id: number = 0
     @Prop onUpdateWrapper: GeneratedTypeLiteralInterface_1 = {
         callback: () => {
         }
@@ -59,6 +60,7 @@ export struct listIterm {
                     .border({ radius: '16.00vp' })
                     .onClick(async () => {
                         let body: recordPutData = {
+                            id: this.record_id,
                             plan_id: this.plan_id,
                             is_checked: this.is_checked === 0 ? 1 : 0,
                             actual_time: this.generateActualTime(),

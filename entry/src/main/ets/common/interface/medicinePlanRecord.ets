@@ -32,6 +32,7 @@ export interface recordPutResponse {
 }
 
 export interface recordPutData {
+    id: number,
     actual_time: string,
     is_checked: number,
     plan_id: number,

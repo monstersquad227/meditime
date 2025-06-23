@@ -6,6 +6,7 @@ export interface ListPlanData {
     amount: number,
     type: string,
     plan_time: string,
+    record_id: number
 }
 
 export interface ListPlanResponse {
