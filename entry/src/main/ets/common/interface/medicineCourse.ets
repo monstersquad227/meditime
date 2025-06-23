@@ -1,4 +1,5 @@
 export interface ListCourseData {
+    course_id: number,
     medicine_name: string
     medicine_image: string
     medicine_type: number

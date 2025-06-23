@@ -16,6 +16,7 @@ export struct listIterm {
     @Prop plat_times: string = '';
     @Prop type: string = '';
     @Prop amount: number = 0;
+    @Prop course_id: number = 0;
     @Prop onDeletedWrapper: GeneratedTypeLiteralInterface_1 = {
         callback: () => {
         }
@@ -56,7 +57,8 @@ export struct listIterm {
                                         plat_times: this.plat_times,
                                         medicine_timing: this.medicine_timing,
                                         medicine_type: this.medicine_type,
-                                        amount: this.amount
+                                        amount: this.amount,
+                                        course_id: this.course_id,
                                     }
                                 })
                             })

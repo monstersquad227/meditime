@@ -10,6 +10,7 @@ interface params {
     medicine_type: number
     medicine_timing: number
     amount: number
+    course_id: number
 }
 
 @Component
@@ -23,6 +24,7 @@ struct updateCourse {
     @State medicine_type: number = 0;
     @State medicine_timing: number = 0;
     @State amount: number = 0;
+    @State course_id: number = 0;
 
     aboutToAppear() {
         const params = router.getParams() as params;
@@ -34,6 +36,7 @@ struct updateCourse {
         this.medicine_type = params?.medicine_type;
         this.medicine_timing = params?.medicine_timing;
         this.amount = params?.amount;
+        this.course_id = params?.course_id;
     }
 
     build() {

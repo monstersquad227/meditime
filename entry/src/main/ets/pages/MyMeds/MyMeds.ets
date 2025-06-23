@@ -45,6 +45,7 @@ export struct MyMeds {
                             ForEach(this.courseData, (item: ListCourseData) => {
                                 ListItem() {
                                     listIterm({
+                                        course_id: item.course_id,
                                         medicine_name: item.medicine_name,
                                         frequency: item.frequency,
                                         medicine_timing: item.medicine_timing,
