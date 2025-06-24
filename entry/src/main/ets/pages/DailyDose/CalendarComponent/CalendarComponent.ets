@@ -21,8 +21,10 @@ export struct CalendarComponent {
         month: new Date().getMonth() + 1,
         day: new Date().getDate()
     };
-    @State selectedDay: number = this.today.day;
-    @Link selectedDate: string;
+    @StorageProp('selectedDay') selectedDay: number = AppStorage.get('selectedDay') ?? this.today.day;
+    // @State selectedDay: number = this.today.day;
+    @StorageProp('selectedDate') selectedDate: string = AppStorage.get('selectedDate') ?? getDate();
+    // @Link selectedDate: string;
     @Prop onUpdateDateWrapper: GeneratedTypeLiteralInterface_1 = {
         callback: () => {
         }
@@ -64,7 +66,8 @@ export struct CalendarComponent {
                 .borderRadius(6)
                 .onClick(() => {
                     this.goToday()
-                    this.selectedDate = getDate()
+                    AppStorage.set('selectedDate', getDate())
+                    // this.selectedDate = getDate()
                     this.onUpdateDateWrapper.callback()
                 })
             }
@@ -95,11 +98,13 @@ export struct CalendarComponent {
                             .borderRadius(15)
                             .onClick(() => {
                                 if (days !== '') {
-                                    this.selectedDay = parseInt(days)
+                                    AppStorage.set('selectedDay', parseInt(days))
+                                    // this.selectedDay = parseInt(days)
                                     const dateStr =
                                         `${this.year}-${this.month.toString().padStart(2, '0')}-${days.padStart(2,
                                             '0')}`;
-                                    this.selectedDate = dateStr;
+                                    // this.selectedDate = dateStr;
+                                    AppStorage.set('selectedDate', dateStr)
 
                                     this.onUpdateDateWrapper.callback()
                                     // AlertDialog.show({ title: 'Selected Date', message: dateStr })
@@ -136,7 +141,8 @@ export struct CalendarComponent {
     private goToday() {
         this.year = this.today.year
         this.month = this.today.month
-        this.selectedDay = this.today.day
+        // this.selectedDay = this.today.day
+        // AppStorage.set('selectedDay', this.today.day)
         this.days = this.generateDays()
     }
 

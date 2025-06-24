@@ -17,7 +17,11 @@ export struct listIterm {
                     .width('16.00vp')
                     .height('16.00vp')
                     .onClick(() => {
+                        let date = this.cuttingDate(this.date)
+                        let dateDay = date.split('-')
                         AppStorage.set('currentIndex', 0)
+                        AppStorage.set('selectedDate', date)
+                        AppStorage.set('selectedDay', parseInt(dateDay[2]))
                     })
             }
             .border({ width: 1, color: '#ff73a2f5', radius: { topLeft: '8.00vp', topRight: '8.00vp' } })

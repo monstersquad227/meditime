@@ -1,13 +1,14 @@
-import { ListPlan, ListPlanV2 } from '../../common/function/medicinePlan';
+import { ListPlanV2 } from '../../common/function/medicinePlan';
 import { ListPlanData } from '../../common/interface/medicinePlan';
-import { CalendarComponent } from './CalendarComponent/CalendarComponent'
 import { listIterm } from './listIterm/listIterm';
-import { promptAction, router } from '@kit.ArkUI';
+import { router } from '@kit.ArkUI';
 import { getDate } from '../../common/function/date';
+import { CalendarComponent } from './CalendarComponent/CalendarComponent';
 
 @Component
 export struct DailyDose {
-    @State selectedDate: string = getDate();
+    // @State selectedDate: string = getDate();
+    @StorageProp('selectedDate') selectedDate: string = AppStorage.get('selectedDate') ?? getDate();
     @State isRefreshing: boolean = false;
     @State planData: ListPlanData[] = [];
     @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0;
@@ -34,7 +35,7 @@ export struct DailyDose {
             }) {
                 Column() {
                     CalendarComponent({
-                        selectedDate: this.selectedDate,
+                        // selectedDate: this.selectedDate,
                         onUpdateDateWrapper: { callback: async () => await this.refreshPlanData() }
                     })
                         .height('300.00vp')

@@ -3,6 +3,7 @@ import { DoseLog } from '../DoseLog/DoseLog';
 import { Me } from '../Me/Me';
 import { MyMeds } from '../MyMeds/MyMeds';
 import { promptAction } from '@kit.ArkUI';
+import { getDate } from '../../common/function/date';
 
 @Entry
 @Component
@@ -58,6 +59,8 @@ struct Dashboard {
         .onChange((val) => {
             this.currentIndex = val
             AppStorage.setOrCreate('currentIndex', val)
+            AppStorage.setOrCreate('selectedDay', new Date().getDate())
+            AppStorage.setOrCreate('selectedDate', getDate())
             // 刷新flag
             this.DailyDoseRefreshFlag++
             // if (val === 0) {
