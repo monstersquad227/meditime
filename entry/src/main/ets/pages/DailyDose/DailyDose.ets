@@ -8,7 +8,8 @@ import { CalendarComponent } from './CalendarComponent/CalendarComponent';
 @Component
 export struct DailyDose {
     // @State selectedDate: string = getDate();
-    @StorageProp('selectedDate') selectedDate: string = AppStorage.get('selectedDate') ?? getDate();
+    @StorageProp('selectedDate') selectedDate: string | undefined = AppStorage.get('selectedDate');
+    @StorageProp('selectedDay') selectedDay: number = AppStorage.get('selectedDay') ?? new Date().getDate();
     @State isRefreshing: boolean = false;
     @State planData: ListPlanData[] = [];
     @Prop @Watch('refreshFlagUpdate') refreshFlag: number = 0;
@@ -20,7 +21,8 @@ export struct DailyDose {
     async refreshPlanData() {
         // promptAction.showToast({ message: this.selectedDate })
         // this.planData = await ListPlan()
-        this.planData = await ListPlanV2(this.selectedDate)
+        // AlertDialog.show({ message: this.selectedDate })
+        this.planData = await ListPlanV2(this.selectedDate ?? getDate())
     }
 
     async aboutToAppear(): Promise<void> {
@@ -36,10 +38,10 @@ export struct DailyDose {
                 Column() {
                     CalendarComponent({
                         // selectedDate: this.selectedDate,
+                        selectedDay: this.selectedDay,
                         onUpdateDateWrapper: { callback: async () => await this.refreshPlanData() }
-                    })
-                        .height('300.00vp')
-                        .width('100%')
+                    }).height('300.00vp').width('100%')
+                    // CalendarComponentV2().height('300.00vp').width('100%')
 
                     if (this.planData.length > 0) {
                         List({ space: '10.00vp' }) {

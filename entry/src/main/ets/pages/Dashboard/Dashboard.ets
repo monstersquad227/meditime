@@ -3,7 +3,7 @@ import { DoseLog } from '../DoseLog/DoseLog';
 import { Me } from '../Me/Me';
 import { MyMeds } from '../MyMeds/MyMeds';
 import { promptAction } from '@kit.ArkUI';
-import { getDate } from '../../common/function/date';
+import { CalendarUtils, getDate } from '../../common/function/date';
 
 @Entry
 @Component
@@ -58,9 +58,9 @@ struct Dashboard {
         .scrollable(false)
         .onChange((val) => {
             this.currentIndex = val
+            // AppStorage.setOrCreate('selectedDay', new Date().getDate())
             AppStorage.setOrCreate('currentIndex', val)
-            AppStorage.setOrCreate('selectedDay', new Date().getDate())
-            AppStorage.setOrCreate('selectedDate', getDate())
+            // AppStorage.setOrCreate('selectedDate', CalendarUtils.getToday())
             // 刷新flag
             this.DailyDoseRefreshFlag++
             // if (val === 0) {

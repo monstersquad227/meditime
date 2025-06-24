@@ -1,5 +1,7 @@
 import { recordListDataContents } from "../../../common/interface/medicinePlanRecord"
 import router from "@ohos.router"
+import { AppStorageV2 } from "@kit.ArkUI"
+import { dealAllError } from "../../../common/function/error"
 
 @Component
 export struct listIterm {
@@ -19,9 +21,14 @@ export struct listIterm {
                     .onClick(() => {
                         let date = this.cuttingDate(this.date)
                         let dateDay = date.split('-')
-                        AppStorage.set('currentIndex', 0)
-                        AppStorage.set('selectedDate', date)
-                        AppStorage.set('selectedDay', parseInt(dateDay[2]))
+                        try {
+                            AppStorage.set('currentIndex', 0)
+                            AppStorage.set('selectedDate', date)
+                            AppStorage.setOrCreate('selectedDay', parseInt(dateDay[2]))
+                        } catch (err) {
+                            dealAllError(err)
+                        }
+
                     })
             }
             .border({ width: 1, color: '#ff73a2f5', radius: { topLeft: '8.00vp', topRight: '8.00vp' } })

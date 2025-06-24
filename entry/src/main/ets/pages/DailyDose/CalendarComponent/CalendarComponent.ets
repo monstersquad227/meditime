@@ -21,10 +21,10 @@ export struct CalendarComponent {
         month: new Date().getMonth() + 1,
         day: new Date().getDate()
     };
-    @StorageProp('selectedDay') selectedDay: number = AppStorage.get('selectedDay') ?? this.today.day;
+    // @StorageProp('selectedDay') selectedDay: number | undefined = AppStorage.get('selectedDay');
     // @State selectedDay: number = this.today.day;
     @StorageProp('selectedDate') selectedDate: string = AppStorage.get('selectedDate') ?? getDate();
-    // @Link selectedDate: string;
+    @Link selectedDay: number
     @Prop onUpdateDateWrapper: GeneratedTypeLiteralInterface_1 = {
         callback: () => {
         }
@@ -129,6 +129,7 @@ export struct CalendarComponent {
             return false
         }
         if (this.selectedDay !== null) {
+            // AlertDialog.show({ message: this.selectedDay.toString() })
             return day === this.selectedDay
         }
         return (
