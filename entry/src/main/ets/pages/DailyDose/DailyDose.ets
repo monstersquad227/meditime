@@ -63,11 +63,14 @@ export struct DailyDose {
                         }.margin({ top: '50.00vp' }).layoutWeight(1).width('90%').height('')
                     } else {
                         Column({ space: '20.00vp' }) {
-                            Image($r('app.media.background'))
-                                .width('80.00vp')
-                                .height('80.00vp')
+                            // Image($r('app.media.background'))
+                            //     .width('80.00vp')
+                            //     .height('80.00vp')
 
-                            Text($r('app.string.NoNeedToPunchInToday'))
+                            // Text($r('app.string.NoNeedToPunchInToday'))
+                            Text('未到时间明日再来')
+                                .fontSize('40.00vp')
+                                .height('150.00vp')
 
                             Button($r('app.string.AddMedicationRegimen'))
                                 .width('70%')

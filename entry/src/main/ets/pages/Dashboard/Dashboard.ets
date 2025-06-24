@@ -8,7 +8,8 @@ import { promptAction } from '@kit.ArkUI';
 @Component
 @Preview
 struct Dashboard {
-    @State currentIndex: number = 0;
+    // @State currentIndex: number = 0;
+    @StorageProp('currentIndex') currentIndex: number = AppStorage.get('currentIndex') ?? 0;
     @State DailyDoseRefreshFlag: number = 0;
 
     @Builder
@@ -31,7 +32,7 @@ struct Dashboard {
     }
 
     build() {
-        Tabs({ barPosition: BarPosition.End }) {
+        Tabs({ index: this.currentIndex, barPosition: BarPosition.End }) {
             TabContent() {
                 DailyDose({ refreshFlag: this.DailyDoseRefreshFlag })
             }
@@ -56,16 +57,18 @@ struct Dashboard {
         .scrollable(false)
         .onChange((val) => {
             this.currentIndex = val
+            AppStorage.setOrCreate('currentIndex', val)
             // 刷新flag
-            if (val === 0) {
-                this.DailyDoseRefreshFlag++
-            } else if (val === 1) {
-                this.DailyDoseRefreshFlag++
-            } else if (val === 2) {
-                this.DailyDoseRefreshFlag++
-            } else if (val === 3) {
-                this.DailyDoseRefreshFlag++
-            }
+            this.DailyDoseRefreshFlag++
+            // if (val === 0) {
+            //     this.DailyDoseRefreshFlag++
+            // } else if (val === 1) {
+            //     this.DailyDoseRefreshFlag++
+            // } else if (val === 2) {
+            //     this.DailyDoseRefreshFlag++
+            // } else if (val === 3) {
+            //     this.DailyDoseRefreshFlag++
+            // }
         })
     }
 }

@@ -4,14 +4,16 @@ import router from '@ohos.router'
 @Component
 struct Index {
     // @State message: string = 'Hello World';
-    @StorageProp ('token') token: string | undefined = AppStorage.get('token')
+    @StorageProp('token') token: string | undefined = AppStorage.get('token')
+
     onPageShow(): void {
+        AppStorage.setOrCreate('currentIndex', 0)
         if (this.token === undefined || this.token === '') {
-            AlertDialog.show({message: this.token})
-            router.pushUrl({ url: 'pages/Login/Login'})
+            // AlertDialog.show({ message: this.token })
+            router.pushUrl({ url: 'pages/Login/Login' })
         } else {
-            AlertDialog.show({message: this.token})
-            router.pushUrl({ url: 'pages/Dashboard/Dashboard'})
+            // AlertDialog.show({ message: this.token })
+            router.pushUrl({ url: 'pages/Dashboard/Dashboard' })
         }
     }
 

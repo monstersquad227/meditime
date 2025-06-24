@@ -1,4 +1,5 @@
 import { recordListDataContents } from "../../../common/interface/medicinePlanRecord"
+import router from "@ohos.router"
 
 @Component
 export struct listIterm {
@@ -15,6 +16,9 @@ export struct listIterm {
                 Image($r('app.media.right_grey'))
                     .width('16.00vp')
                     .height('16.00vp')
+                    .onClick(() => {
+                        AppStorage.set('currentIndex', 0)
+                    })
             }
             .border({ width: 1, color: '#ff73a2f5', radius: { topLeft: '8.00vp', topRight: '8.00vp' } })
             .width('100%')
