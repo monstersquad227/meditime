@@ -1,6 +1,9 @@
-import { promptAction, router } from '@kit.ArkUI'
-import { translateMedicineTime } from '../../../common/function/medicineCourse';
-import { listIterm } from '../../DailyDose/listIterm/listIterm';
+import { router } from '@kit.ArkUI'
+import { translateMedicineTime, UpdateCourse } from '../../../common/function/medicineCourse';
+import { UpdateCourseData } from '../../../common/interface/medicineCourse';
+import json from '@ohos.util.json';
+import { JSON } from '@kit.ArkTS';
+import { CalendarUtils } from '../../../common/function/date';
 
 interface params {
     type: string;
@@ -25,6 +28,7 @@ struct updateCourse {
     @State medicine_timing: number = 0;
     @State amount: number = 0;
     @State course_id: number = 0;
+    private selectTime: Date = new Date('2020-12-25T08:30:00')
 
     aboutToAppear() {
         const params = router.getParams() as params;
@@ -62,8 +66,7 @@ struct updateCourse {
                             TextInput({
                                 placeholder: '请输入药物名称',
                                 text: this.medicine_name
-                            }).alignSelf(ItemAlign.Start)
-                                .width('100%')
+                            }).alignSelf(ItemAlign.Start).width('100%')
                                 .border({ radius: 0 })// .backgroundColor(Color.White)
                                 .onChange((value: string) => {
                                     this.medicine_name = value
@@ -88,6 +91,19 @@ struct updateCourse {
                                 Text('每日')
                                 Blank().layoutWeight(1)
                                 TextInput({ text: String(this.frequency) }).width('40.00vp').border({ radius: 8 })
+                                    .onChange((val: string) => {
+                                        const newFreq = parseInt(val);
+                                        if (!isNaN(newFreq)) {
+                                            this.frequency = newFreq;
+                                            const diff = newFreq - this.courseStartTime.length;
+                                            if (diff > 0) {
+                                                this.courseStartTime =
+                                                    [...this.courseStartTime, ...Array(diff).fill('')];
+                                            } else if (diff < 0) {
+                                                this.courseStartTime = this.courseStartTime.slice(0, newFreq);
+                                            }
+                                        }
+                                    })
                                 Text('次').margin({ left: '10.00vp' })
                             }
 
@@ -115,11 +131,24 @@ struct updateCourse {
                             Text('用药时间')
                                 .alignSelf(ItemAlign.Start)
                                 .fontWeight(FontWeight.Bold)
-                            ForEach(this.courseStartTime, (time: string, _: number) => {
+                            ForEach(this.courseStartTime, (time: string, index: number) => {
                                 Row() {
                                     Text('时间')
                                     Blank().layoutWeight(1)
-                                    Button(time).fontColor(Color.Black).backgroundColor('#F2F2F2')
+                                    Button(time === '' ? '请选择时间' : time)
+                                        .fontColor(Color.Black)
+                                        .backgroundColor('#F2F2F2')
+                                        .onClick(() => {
+                                            this.getUIContext().showTimePickerDialog({
+                                                useMilitaryTime: true,
+                                                selected: this.selectTime,
+                                                onAccept: (value: TimePickerResult) => {
+                                                    const hourStr = String(value.hour).padStart(2, '0');
+                                                    const minuteStr = String(value.minute).padStart(2, '0');
+                                                    this.courseStartTime[index] = `${hourStr}:${minuteStr}`;
+                                                }
+                                            })
+                                        })
                                 }
                             })
                         }
@@ -162,6 +191,9 @@ struct updateCourse {
                                     { value: '随餐用药' },
                                     { value: '睡前用药' }
                                 ])
+                                    .onSelect((index: number) => {
+                                        this.medicine_timing = index
+                                    })
                                     .value(translateMedicineTime(this.medicine_timing))
                             }
                         }
@@ -172,15 +204,31 @@ struct updateCourse {
                     .margin({ left: '5%', right: '5%' })
                 }
 
+                // 保存按钮
                 ListItem() {
                     Row() {
                         Button('保存').width('100%').onClick(() => {
+                            const body: UpdateCourseData = {
+                                course_id: this.course_id,
+                                user_id: Number(AppStorage.get('user_id')),
+                                medicine_name: this.medicine_name,
+                                medicine_type: this.medicine_type,
+                                medicine_timing: this.medicine_timing,
+                                course_start_time: CalendarUtils.getYear() + '-' + CalendarUtils.getMonth() + '-' +
+                                CalendarUtils.getDay() + ' ' + this.courseStartTime[0],
+                                course_start_times: this.courseStartTime,
+                                amount: this.amount,
+                                type: this.type,
+                                plan_time: this.plat_times,
+                                frequency: this.frequency
+                            }
+                            AlertDialog.show({ message: JSON.stringify(body) })
+                            UpdateCourse(body)
                             router.back()
                         })
                     }.margin({ left: '5%', right: '5%' })
                 }
-            }
-            .margin({ top: '20.00vp', bottom: '50.00vp' })
-        }
+            }.height('90%').width('100%').margin({ top: '20.00vp', bottom: '50.00vp' })
+        }.height('100%').width('100%')
     }
 }

@@ -6,7 +6,9 @@ import {
     DeleteCourseData,
     DeleteCourseResponse,
     ListCourseData,
-    ListCourseResponse
+    ListCourseResponse,
+    UpdateCourseData,
+    UpdateCourseResponse
 } from "../interface/medicineCourse";
 import { promptAction } from "@kit.ArkUI";
 import { dealAllError } from "./error";
@@ -98,6 +100,7 @@ export async function CreateCourse(data: CreateCourseData): Promise<void> {
     }
 }
 
+// 删除用药方案
 export async function DeleteCourse(data: DeleteCourseData): Promise<void> {
     let httpRequest = http.createHttp();
     let URL = baseURL + '/course';
@@ -121,6 +124,37 @@ export async function DeleteCourse(data: DeleteCourseData): Promise<void> {
                 return;
             } else {
                 promptAction.showToast({ message: '结束成功' });
+            }
+        })
+    } catch (err) {
+        dealAllError(err)
+    }
+    ;
+}
+
+// 更新用药方案&用药计划
+export async function UpdateCourse(data: UpdateCourseData): Promise<void> {
+    let httpRequest = http.createHttp();
+    let URL = baseURL + '/course'
+
+    try {
+        await httpRequest.request(URL, {
+            method: http.RequestMethod.PUT,
+            connectTimeout: 3000,
+            readTimeout: 3000,
+            header: {
+                'Content-Type': 'application/json',
+                'token': AppStorage.get('token')
+            },
+            extraData: data,
+            expectDataType: http.HttpDataType.OBJECT
+        }).then((res: http.HttpResponse) => {
+            let result = res.result as UpdateCourseResponse
+            if (result.code !== 0) {
+                promptAction.showToast({ message: result.message })
+                return;
+            } else {
+                promptAction.showToast({ message: '更新成功' })
             }
         })
     } catch (err) {
