@@ -1,56 +1,56 @@
 {
     "app": {
-        "signingConfigs": [
-            {
-                "name": "default",
-                "type": "HarmonyOS",
-                "material": {
-                    "certpath": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.cer",
-                    "keyAlias": "debugKey",
-                    "keyPassword": "0000001A28C7E9B2B2351AF0A7377F5EFC8ECC160AD9E17B889E82EE1784A6EBF5434370088F7750804B",
-                    "profile": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.p7b",
-                    "signAlg": "SHA256withECDSA",
-                    "storeFile": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.p12",
-                    "storePassword": "0000001A477422604B71678350DE2ACDD4B931B44C4AD0E613D6EDF31AB9189C0C2CABE4FF43A25BC635"
-                }
-            }
-        ],
-        "products": [
-            {
-                "name": "default",
-                "signingConfig": "default",
-                "targetSdkVersion": "5.0.5(17)",
-                "compatibleSdkVersion": "5.0.1(13)",
-                "runtimeOS": "HarmonyOS",
-                "buildOption": {
-                    "strictMode": {
-                        "caseSensitiveCheck": true,
-                        "useNormalizedOHMUrl": true
-                    }
-                }
-            }
-        ],
-        "buildModeSet": [
-            {
-                "name": "debug",
-            },
-            {
-                "name": "release"
-            }
-        ]
+	"signingConfigs": [
+	    {
+		"name": "default",
+		"type": "HarmonyOS",
+		"material": {
+		    "certpath": "/Users/monstersquad/.ohos/config/default_meditime_TQXd4oyUduRAYTtfZStuAu3-6Xjt4tykWfKtImwgmIU=.cer",
+		    "keyAlias": "debugKey",
+		    "keyPassword": "0000001BE0427E807CB5A17FC520E1948E3DE90D5799DFE63A8DB0B7BA17D2AF9AFEFA81991359186703EF",
+		    "profile": "/Users/monstersquad/.ohos/config/default_meditime_TQXd4oyUduRAYTtfZStuAu3-6Xjt4tykWfKtImwgmIU=.p7b",
+		    "signAlg": "SHA256withECDSA",
+		    "storeFile": "/Users/monstersquad/.ohos/config/default_meditime_TQXd4oyUduRAYTtfZStuAu3-6Xjt4tykWfKtImwgmIU=.p12",
+		    "storePassword": "0000001B43B9BC89F00CB14CF81E209D566E3AAB85AF6C976E067E3AE733488ED49499353A61C8851DA1E9"
+		}
+	    }
+	],
+	"products": [
+	    {
+		"name": "default",
+		"signingConfig": "default",
+		"targetSdkVersion": "5.0.5(17)",
+		"compatibleSdkVersion": "5.0.1(13)",
+		"runtimeOS": "HarmonyOS",
+		"buildOption": {
+		    "strictMode": {
+			"caseSensitiveCheck": true,
+			"useNormalizedOHMUrl": true
+		    }
+		}
+	    }
+	],
+	"buildModeSet": [
+	    {
+		"name": "debug",
+	    },
+	    {
+		"name": "release"
+	    }
+	]
     },
     "modules": [
-        {
-            "name": "entry",
-            "srcPath": "./entry",
-            "targets": [
-                {
-                    "name": "default",
-                    "applyToProducts": [
-                        "default"
-                    ]
-                }
-            ]
-        }
+	{
+	    "name": "entry",
+	    "srcPath": "./entry",
+	    "targets": [
+		{
+		    "name": "default",
+		    "applyToProducts": [
+			"default"
+		    ]
+		}
+	    ]
+	}
     ]
 }

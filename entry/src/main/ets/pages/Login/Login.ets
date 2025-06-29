@@ -7,6 +7,7 @@ import { medicineLogin } from '../../common/function/medicineLogin';
 import { LoginRequestData } from '../../common/interface/medicineLogin';
 import { openBrowser } from '../../common/function/openBrowser';
 import { HuaweiAccountUserAuthenticationProtocolAddress } from '../../common/constant/constant';
+import { hilog } from '@kit.PerformanceAnalysisKit';
 
 @Entry
 @Component
@@ -19,6 +20,7 @@ struct Login {
             .onClickLoginWithHuaweiIDButton(async (error, response) => {
                 if (error) {
                     promptAction.showToast({ message: '请先阅读并同意隐私协议' })
+                    hilog.error(0x0000, '一键登陆失败', error.message)
                 } else {
                     let data: LoginRequestData = {
                         authorization_code: response.authorizationCode

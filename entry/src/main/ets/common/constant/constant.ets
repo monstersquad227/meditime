@@ -1,6 +1,6 @@
 // export const baseURL: string = 'http://10.11.11.56:8081/medicine'
 
-export const baseURL: string = 'http://192.168.5.120:8081/medicine'
+export const baseURL: string = 'http://192.168.1.6:8081/medicine'
 
 // export const baseURL: string = 'http://47.103.98.61:8080/medicine'
 

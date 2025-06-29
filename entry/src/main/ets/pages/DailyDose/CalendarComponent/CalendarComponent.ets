@@ -66,7 +66,7 @@ export struct CalendarComponent {
                 .borderRadius(6)
                 .onClick(() => {
                     this.goToday()
-                    AppStorage.set('selectedDate', getDate())
+                    // AppStorage.set('selectedDate', getDate())
                     // this.selectedDate = getDate()
                     this.onUpdateDateWrapper.callback()
                 })
@@ -140,10 +140,20 @@ export struct CalendarComponent {
     }
 
     private goToday() {
+        // this.year = this.today.year
+        // this.month = this.today.month
+        // // this.selectedDay = this.today.day
+        // AppStorage.set('selectedDay', this.today.day)
+        // this.days = this.generateDays()
         this.year = this.today.year
         this.month = this.today.month
-        // this.selectedDay = this.today.day
-        // AppStorage.set('selectedDay', this.today.day)
+        this.selectedDay = this.today.day
+        AppStorage.set('selectedDay', this.today.day)
+
+        const todayStr = getDate();
+        this.selectedDate = todayStr
+        AppStorage.set('selectedDate', todayStr)
+
         this.days = this.generateDays()
     }
 
