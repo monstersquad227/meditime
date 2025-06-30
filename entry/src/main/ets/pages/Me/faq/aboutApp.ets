@@ -1,4 +1,8 @@
 import { router } from "@kit.ArkUI";
+import { AbilityConstant, UIAbility, Want } from "@kit.AbilityKit";
+import { pushService } from "@kit.PushKit";
+import { BusinessError } from "@kit.BasicServicesKit";
+import { hilog } from "@kit.PerformanceAnalysisKit";
 
 @Component
 @Entry
@@ -34,6 +38,12 @@ export struct aboutApp {
                     .fontSize(16)
                     .lineHeight(24)
                     .padding({ left: '10.00vp', right: '10.00vp' })
+
+                Button('PushToken')
+                    .onClick(async () => {
+                        const pushToken: string = await pushService.getToken();
+                        hilog.info(0x0000, 'pushToken', pushToken)
+                    })
             }
 
         }

@@ -13,7 +13,8 @@ export interface recordListDataContents {
     id: number,
     medicine_name: string,
     memo?: string,
-    status: number
+    status: number,
+    is_checked: number,
 }
 
 /*

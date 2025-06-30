@@ -104,7 +104,8 @@ struct course {
                             Row() {
                                 Text('每次')
                                     .width('15%')
-                                Blank().width('50%')
+                                // Blank().width('50%')
+                                Blank().layoutWeight(1)
                                 Row() {
                                     TextInput()
                                         .type(InputType.Number)
@@ -114,7 +115,8 @@ struct course {
                                         .onChange((value: string) => {
                                             this.amount = parseInt(value)
                                         })
-                                    Blank().width('5%')
+                                    // Blank().width('5%')
+                                    Blank().layoutWeight(1)
                                     TextInput({ text: this.type })
                                         .borderRadius(8)
                                         .onChange((value: string) => {

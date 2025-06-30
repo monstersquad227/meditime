@@ -45,9 +45,10 @@ export struct listIterm {
                         .fontColor('#888888')
                         .margin({ top: 4 })
                     Blank()
-                    Text(this.translateStatus(item.status))
-                        .fontSize(14)
-                        .fontColor(item.status === 1 ? '#FF0000' : '#0000FF')
+                    // Text(this.translateStatus(item.status))
+                    Text(this.translateStatusAndIsChecked(item.status, item.is_checked))
+                        .fontSize(14)// .fontColor(item.status === 1 ? '#FF0000' : '#0000FF')
+                        .fontColor(this.translateStatusAndIsCheckedColor(item.status, item.is_checked))
                         .margin({ top: 4 })
                 }
                 .width('100%')
@@ -72,6 +73,26 @@ export struct listIterm {
             return '异常'
         } else {
             return '正常'
+        }
+    }
+
+    private translateStatusAndIsChecked(status: number, isChecked: number): string {
+        if (isChecked === 1 && status === 0) {
+            return '打卡正常'
+        } else if (isChecked === 1 && status === 1) {
+            return '打开时间异常'
+        } else {
+            return '未打卡'
+        }
+    }
+
+    private translateStatusAndIsCheckedColor(status: number, isChecked: number): string {
+        if (isChecked === 1 && status === 0) {
+            return '#0000FF'
+        } else if (isChecked === 1 && status === 1) {
+            return '#FFC107'
+        } else {
+            return '#FF0000'
         }
     }
 }
