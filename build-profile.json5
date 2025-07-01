@@ -1,56 +1,56 @@
 {
     "app": {
-	"signingConfigs": [
-	    {
-		"name": "default",
-		"type": "HarmonyOS",
-		"material": {
-		    "certpath": "/Users/monstersquad/.ohos/config/default_meditime_TQXd4oyUduRAYTtfZStuAu3-6Xjt4tykWfKtImwgmIU=.cer",
-		    "keyAlias": "debugKey",
-		    "keyPassword": "0000001BE0427E807CB5A17FC520E1948E3DE90D5799DFE63A8DB0B7BA17D2AF9AFEFA81991359186703EF",
-		    "profile": "/Users/monstersquad/.ohos/config/default_meditime_TQXd4oyUduRAYTtfZStuAu3-6Xjt4tykWfKtImwgmIU=.p7b",
-		    "signAlg": "SHA256withECDSA",
-		    "storeFile": "/Users/monstersquad/.ohos/config/default_meditime_TQXd4oyUduRAYTtfZStuAu3-6Xjt4tykWfKtImwgmIU=.p12",
-		    "storePassword": "0000001B43B9BC89F00CB14CF81E209D566E3AAB85AF6C976E067E3AE733488ED49499353A61C8851DA1E9"
-		}
-	    }
-	],
-	"products": [
-	    {
-		"name": "default",
-		"signingConfig": "default",
-		"targetSdkVersion": "5.0.5(17)",
-		"compatibleSdkVersion": "5.0.1(13)",
-		"runtimeOS": "HarmonyOS",
-		"buildOption": {
-		    "strictMode": {
-			"caseSensitiveCheck": true,
-			"useNormalizedOHMUrl": true
-		    }
-		}
-	    }
-	],
-	"buildModeSet": [
-	    {
-		"name": "debug",
-	    },
-	    {
-		"name": "release"
-	    }
-	]
+        "signingConfigs": [
+            {
+                "name": "default",
+                "type": "HarmonyOS",
+                "material": {
+                    "certpath": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.cer",
+                    "keyAlias": "debugKey",
+                    "keyPassword": "0000001AC4FD8C2A00F28C1D9FC54F775CA69E26DABED27791511AAE4832187126F627B67F2C8288F15B",
+                    "profile": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.p7b",
+                    "signAlg": "SHA256withECDSA",
+                    "storeFile": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.p12",
+                    "storePassword": "0000001A2C83165CAA6044D68C08C922683E7DF10617CEC7957E492395BC409259CD17C69A95E2B96250"
+                }
+            }
+        ],
+        "products": [
+            {
+                "name": "default",
+                "signingConfig": "default",
+                "targetSdkVersion": "5.0.5(17)",
+                "compatibleSdkVersion": "5.0.1(13)",
+                "runtimeOS": "HarmonyOS",
+                "buildOption": {
+                    "strictMode": {
+                        "caseSensitiveCheck": true,
+                        "useNormalizedOHMUrl": true
+                    }
+                }
+            }
+        ],
+        "buildModeSet": [
+            {
+                "name": "debug",
+            },
+            {
+                "name": "release"
+            }
+        ]
     },
     "modules": [
-	{
-	    "name": "entry",
-	    "srcPath": "./entry",
-	    "targets": [
-		{
-		    "name": "default",
-		    "applyToProducts": [
-			"default"
-		    ]
-		}
-	    ]
-	}
+        {
+            "name": "entry",
+            "srcPath": "./entry",
+            "targets": [
+                {
+                    "name": "default",
+                    "applyToProducts": [
+                        "default"
+                    ]
+                }
+            ]
+        }
     ]
 }
