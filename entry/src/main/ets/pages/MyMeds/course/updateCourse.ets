@@ -90,7 +90,7 @@ struct updateCourse {
                             Row() {
                                 Text('每日')
                                 Blank().layoutWeight(1)
-                                TextInput({ text: String(this.frequency) }).width('40.00vp').border({ radius: 8 })
+                                TextInput({ text: String(this.frequency) }).width('25%').border({ radius: 8 })
                                     .onChange((val: string) => {
                                         const newFreq = parseInt(val);
                                         if (!isNaN(newFreq)) {
@@ -103,18 +103,17 @@ struct updateCourse {
                                                 this.courseStartTime = this.courseStartTime.slice(0, newFreq);
                                             }
                                         }
-                                    })
-                                Text('次').margin({ left: '10.00vp' })
+                                    }).textAlign(TextAlign.Center)
+                                Text('次').margin({ left: '10.00vp' }).width('25%').textAlign(TextAlign.Center)
                             }
 
                             Row() {
                                 Text('每次')
                                 Blank().layoutWeight(1)
-                                TextInput({ text: String(this.amount) }).width('40.00vp').border({ radius: 8 })
-                                TextInput({ text: String(this.type) })
-                                    .width('50.00vp')
-                                    .border({ radius: 8 })
-                                    .margin({ left: '10.00vp' })
+                                TextInput({ text: String(this.amount) }).width('25%').border({ radius: 8 })
+                                    .textAlign(TextAlign.Center)
+                                TextInput({ text: String(this.type) }).width('25%').border({ radius: 8 })
+                                    .margin({ left: '10.00vp' }).textAlign(TextAlign.Center)
                             }
                         }
                         .padding(10)
@@ -136,6 +135,9 @@ struct updateCourse {
                                     Text('时间')
                                     Blank().layoutWeight(1)
                                     Button(time === '' ? '请选择时间' : time)
+                                        .width('50%')
+                                        .borderRadius(8)
+                                        .type(ButtonType.Normal)
                                         .fontColor(Color.Black)
                                         .backgroundColor('#F2F2F2')
                                         .onClick(() => {
@@ -190,7 +192,7 @@ struct updateCourse {
                                     { value: '饭后用药' },
                                     { value: '随餐用药' },
                                     { value: '睡前用药' }
-                                ])
+                                ]).width('50%').borderRadius(8)
                                     .onSelect((index: number) => {
                                         this.medicine_timing = index
                                     })
