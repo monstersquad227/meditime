@@ -25,20 +25,21 @@ export struct listIterm {
     build() {
         Column() {
             Row() {
-                Column({ space: '20.00vp' }) {
+                Column({ space: '10.00vp' }) {
                     Text(this.medicine_name)
+                        .fontSize('16.00vp')
                         .fontWeight(FontWeight.Bold)
                         .alignSelf(ItemAlign.Start)
 
                     Row() {
                         Text('每日 ' + this.frequency + ' 次, ' +
-                        translateMedicineTime(this.medicine_timing))
+                        translateMedicineTime(this.medicine_timing)).fontSize('14.00vp')
                         Blank().layoutWeight(1)
-                        Text(translateType(this.medicine_type))
+                        Text(translateType(this.medicine_type)).fontSize('14.00vp')
                     }
 
                     Text(this.splitDate(this.course_start_time) + ' 开始')
-                        .alignSelf(ItemAlign.Start)
+                        .alignSelf(ItemAlign.Start).fontSize('14.00vp')
 
                     Row() {
                         Button('修改方案')

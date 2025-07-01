@@ -61,7 +61,7 @@ export struct MyMeds {
                                 .margin({ left: '5%', right: '5%' })
                                 .border({ width: 1, color: '#cccccc', radius: 8 })
                             })
-                        }
+                        }.margin({ top: '20.00vp' })
                     }
                 }
             }

@@ -40,12 +40,14 @@ export struct listIterm {
     build() {
         Column() {
             Row() {
-                Column({ space: '20.00vp' }) {
+                Column({ space: '10.00vp' }) {
                     Text(this.medicine_name + ' ' + this.amount + ' ' + this.type)
                         .fontWeight(FontWeight.Bold)
                         .alignSelf(ItemAlign.Start)
+                        .fontSize('16.00vp')
                     Text(this.plan_time + ' ' + translateMedicineTime(this.medicine_timing))
                         .alignSelf(ItemAlign.Start)
+                        .fontSize('14.00vp')
                 }
                 .padding(10)
 
@@ -53,11 +55,9 @@ export struct listIterm {
 
                 Button(this.is_checked === 0 ? '打卡' :
                     '撤销打卡')
-                    .width('90.00vp')
-                    .height('60.00vp')
+                    .width('30%')
+                    .height('13%')
                     .backgroundColor(this.is_checked === 0 ? null : Color.Grey)
-                    .type(ButtonType.Normal)
-                    .border({ radius: '16.00vp' })
                     .onClick(() => {
                         let body: recordPutData = {
                             id: this.record_id,
