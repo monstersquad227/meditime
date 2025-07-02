@@ -4,6 +4,11 @@ import { listIterm } from './listIterm/listIterm';
 import { router } from '@kit.ArkUI';
 import { getDate } from '../../common/function/date';
 import { CalendarComponent } from './CalendarComponent/CalendarComponent';
+import { notificationManager } from '@kit.NotificationKit';
+import { common } from '@kit.AbilityKit';
+import { hilog } from '@kit.PerformanceAnalysisKit';
+import { BusinessError } from '@kit.BasicServicesKit';
+import { pushService } from '@kit.PushKit';
 
 @Component
 export struct DailyDose {
@@ -26,7 +31,8 @@ export struct DailyDose {
     }
 
     async aboutToAppear(): Promise<void> {
-        this.refreshPlanData()
+        this.refreshPlanData();
+        this.requestEnableNotification();
     };
 
     build() {
@@ -71,7 +77,7 @@ export struct DailyDose {
                             Text('明日再来')
                                 .fontSize('40.00vp')
                                 .height('150.00vp')
-                            
+
                             Button($r('app.string.AddMedicationRegimen'))
                                 .width('70%')
                                 .height('60')
@@ -102,5 +108,21 @@ export struct DailyDose {
         const today = new Date()
         today.setHours(0, 0, 0, 0)
         return inputDate < today
+    }
+
+    private async requestEnableNotification(): Promise<void> {
+        try {
+            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
+            await notificationManager.requestEnableNotification(context).then(async () => {
+                const pushToken: string = await pushService.getToken();
+                hilog.info(0x0000, 'pushToken', pushToken)
+            })
+            AlertDialog.show({ message: 'Succeeded in requesting enable notification' })
+            // Logger.info('Succeeded in requesting enable notification');
+        } catch (e) {
+            const err: BusinessError = e;
+            AlertDialog.show({ title: err.code.toString(), message: err.message })
+            // Logger.error('Failed to request enable notification: %{public}d %{public}s', err.code, err.message);
+        }
     }
 }

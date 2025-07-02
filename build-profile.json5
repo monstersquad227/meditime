@@ -7,11 +7,11 @@
                 "material": {
                     "certpath": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.cer",
                     "keyAlias": "debugKey",
-                    "keyPassword": "0000001AC4FD8C2A00F28C1D9FC54F775CA69E26DABED27791511AAE4832187126F627B67F2C8288F15B",
+                    "keyPassword": "0000001AB3BD3D69A74A505A2D69C0D0A280CAF525858FA7C8CE3827E7B04654791AE34F80C839724541",
                     "profile": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.p7b",
                     "signAlg": "SHA256withECDSA",
                     "storeFile": "/Users/monstersquad/.ohos/config/default_meditime_SlzqUpMbS6h91QLl8ddasNQxN0oLjA7NV92IVT5x3yE=.p12",
-                    "storePassword": "0000001A2C83165CAA6044D68C08C922683E7DF10617CEC7957E492395BC409259CD17C69A95E2B96250"
+                    "storePassword": "0000001A741B846F5FD83B488A8332616B40F00542661D5FA59D84E91F470DCD97786ED245CB535CF292"
                 }
             }
         ],
