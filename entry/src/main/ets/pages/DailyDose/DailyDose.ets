@@ -111,18 +111,29 @@ export struct DailyDose {
     }
 
     private async requestEnableNotification(): Promise<void> {
+        let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
         try {
-            let context = this.getUIContext().getHostContext() as common.UIAbilityContext;
             await notificationManager.requestEnableNotification(context).then(async () => {
                 const pushToken: string = await pushService.getToken();
                 hilog.info(0x0000, 'pushToken', pushToken)
             })
-            // AlertDialog.show({ message: 'Succeeded in requesting enable notification' })
-            // Logger.info('Succeeded in requesting enable notification');
+
         } catch (e) {
-            const err: BusinessError = e;
-            AlertDialog.show({ title: err.code.toString(), message: err.message })
-            // Logger.error('Failed to request enable notification: %{public}d %{public}s', err.code, err.message);
+            AlertDialog.show({
+                title: '通知权限未开启',
+                message: '为了接收服药提醒，请前往设置打开通知权限。',
+                primaryButton: {
+                    value: '前往设置',
+                    action: () => {
+                        notificationManager.openNotificationSettings(context);
+                    }
+                },
+                secondaryButton: {
+                    value: '取消',
+                    action: () => {
+                    }
+                }
+            })
         }
     }
 }
