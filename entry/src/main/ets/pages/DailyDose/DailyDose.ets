@@ -117,7 +117,7 @@ export struct DailyDose {
                 const pushToken: string = await pushService.getToken();
                 hilog.info(0x0000, 'pushToken', pushToken)
             })
-            AlertDialog.show({ message: 'Succeeded in requesting enable notification' })
+            // AlertDialog.show({ message: 'Succeeded in requesting enable notification' })
             // Logger.info('Succeeded in requesting enable notification');
         } catch (e) {
             const err: BusinessError = e;

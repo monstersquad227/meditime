@@ -39,11 +39,11 @@ export struct aboutApp {
                     .lineHeight(24)
                     .padding({ left: '10.00vp', right: '10.00vp' })
 
-                Button('PushToken')
-                    .onClick(async () => {
-                        const pushToken: string = await pushService.getToken();
-                        hilog.info(0x0000, 'pushToken', pushToken)
-                    })
+                // Button('PushToken')
+                //     .onClick(async () => {
+                //         const pushToken: string = await pushService.getToken();
+                //         hilog.info(0x0000, 'pushToken', pushToken)
+                //     })
             }
 
         }
