@@ -1,3 +1,4 @@
+import { getDate } from "../../../common/function/date";
 import { translateMedicineTime } from "../../../common/function/medicineCourse";
 import { recordUpdate } from "../../../common/function/medicinePlanRecord";
 import { recordPutData } from "../../../common/interface/medicinePlanRecord";
@@ -8,6 +9,7 @@ interface GeneratedTypeLiteralInterface_1 {
 
 @Component
 export struct listIterm {
+    @StorageProp('selectedDate') selectedDate: string = AppStorage.get('selectedDate') ?? getDate();
     @Prop medicine_name: string = '';
     @Prop amount: number = 0;
     @Prop type: string = '';
@@ -23,18 +25,11 @@ export struct listIterm {
 
     private generateActualTime(): string {
         let date = new Date()
-        let yearStr = date.getFullYear().toString()
-        let year = String(yearStr).padStart(2, '0')
-        let monthStr = date.getMonth() + 1
-        let month = String(monthStr.toString()).padStart(2, '0')
-        let dayStr = date.getDate()
-        let day = String(dayStr.toString()).padStart(2, '0')
         let hourStr = date.getHours().toString()
         let hour = String(hourStr).padStart(2, '0')
-
         let minuteStr = date.getMinutes().toString()
         let minute = String(minuteStr).padStart(2, '0')
-        return `${year}-${month}-${day} ${hour}:${minute}:00`
+        return this.selectedDate + ` ${hour}:${minute}`
     }
 
     build() {

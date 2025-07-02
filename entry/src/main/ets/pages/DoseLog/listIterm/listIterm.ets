@@ -68,19 +68,11 @@ export struct listIterm {
         return dateTimes[0];
     }
 
-    private translateStatus(value: number): string {
-        if (value === 1) {
-            return '异常'
-        } else {
-            return '正常'
-        }
-    }
-
     private translateStatusAndIsChecked(status: number, isChecked: number): string {
         if (isChecked === 1 && status === 0) {
             return '打卡正常'
         } else if (isChecked === 1 && status === 1) {
-            return '打开时间异常'
+            return '打卡时间异常'
         } else {
             return '未打卡'
         }
