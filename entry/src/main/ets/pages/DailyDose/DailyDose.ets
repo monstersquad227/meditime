@@ -64,17 +64,14 @@ export struct DailyDose {
                                 .border({ width: 1, color: '#cccccc', radius: 8 })
                             })
                         }.margin({ top: '50.00vp' }).layoutWeight(1).width('90%').height('')
+                    } else if (this.isBeforeToday(this.selectedDate ?? '')) {
                     } else {
                         Column({ space: '20.00vp' }) {
-                            // Image($r('app.media.background'))
-                            //     .width('80.00vp')
-                            //     .height('80.00vp')
 
-                            // Text($r('app.string.NoNeedToPunchInToday'))
-                            Text('未到时间明日再来')
+                            Text('明日再来')
                                 .fontSize('40.00vp')
                                 .height('150.00vp')
-
+                            
                             Button($r('app.string.AddMedicationRegimen'))
                                 .width('70%')
                                 .height('60')
@@ -98,5 +95,12 @@ export struct DailyDose {
                 }, 1000)
             })
         }.height('100%').width('100%')
+    }
+
+    private isBeforeToday(val: string): boolean {
+        const inputDate = new Date(val)
+        const today = new Date()
+        today.setHours(0, 0, 0, 0)
+        return inputDate < today
     }
 }
