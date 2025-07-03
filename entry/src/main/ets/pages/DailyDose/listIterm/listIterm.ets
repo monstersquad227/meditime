@@ -40,9 +40,11 @@ export struct listIterm {
                         .fontWeight(FontWeight.Bold)
                         .alignSelf(ItemAlign.Start)
                         .fontSize('16.00vp')
+                        .maxLines(1)
                     Text(this.plan_time + ' ' + translateMedicineTime(this.medicine_timing))
                         .alignSelf(ItemAlign.Start)
                         .fontSize('14.00vp')
+                        .maxLines(1)
                 }
                 .padding(10)
 
