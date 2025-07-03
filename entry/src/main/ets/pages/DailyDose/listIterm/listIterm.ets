@@ -29,6 +29,9 @@ export struct listIterm {
         let hour = String(hourStr).padStart(2, '0')
         let minuteStr = date.getMinutes().toString()
         let minute = String(minuteStr).padStart(2, '0')
+        if (this.selectedDate === undefined) {
+            this.selectedDate = getDate()
+        }
         return this.selectedDate + ` ${hour}:${minute}`
     }
 
@@ -41,6 +44,8 @@ export struct listIterm {
                         .alignSelf(ItemAlign.Start)
                         .fontSize('16.00vp')
                         .maxLines(1)
+                        .textOverflow({ overflow: TextOverflow.Ellipsis })
+                        .width('50%')
                     Text(this.plan_time + ' ' + translateMedicineTime(this.medicine_timing))
                         .alignSelf(ItemAlign.Start)
                         .fontSize('14.00vp')
