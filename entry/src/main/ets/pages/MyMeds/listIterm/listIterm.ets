@@ -74,9 +74,23 @@ export struct listIterm {
                                     medicine_name: this.medicine_name,
                                     user_id: Number(AppStorage.get('user_id'))
                                 }
-                                DeleteCourse(data)
-
-                                this.onDeletedWrapper.callback()
+                                AlertDialog.show({
+                                    message: '确定结束 ' + this.medicine_name + ' 用药吗？',
+                                    buttons: [
+                                        {
+                                            value: "取消",
+                                            action: () => {
+                                            }
+                                        },
+                                        {
+                                            value: "确定",
+                                            action: async () => {
+                                                DeleteCourse(data)
+                                                this.onDeletedWrapper.callback()
+                                            }
+                                        }
+                                    ]
+                                })
                             })
                     }
                 }

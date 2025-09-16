@@ -7,12 +7,10 @@ import { CalendarComponent } from './CalendarComponent/CalendarComponent';
 import { notificationManager } from '@kit.NotificationKit';
 import { common } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
-import { BusinessError } from '@kit.BasicServicesKit';
 import { pushService } from '@kit.PushKit';
 
 @Component
 export struct DailyDose {
-    // @State selectedDate: string = getDate();
     @StorageProp('selectedDate') selectedDate: string | undefined = AppStorage.get('selectedDate');
     @StorageProp('selectedDay') selectedDay: number = AppStorage.get('selectedDay') ?? new Date().getDate();
     @State isRefreshing: boolean = false;
@@ -24,9 +22,6 @@ export struct DailyDose {
     }
 
     async refreshPlanData() {
-        // promptAction.showToast({ message: this.selectedDate })
-        // this.planData = await ListPlan()
-        // AlertDialog.show({ message: this.selectedDate })
         this.planData = await ListPlanV2(this.selectedDate ?? getDate())
     }
 
@@ -43,11 +38,9 @@ export struct DailyDose {
             }) {
                 Column() {
                     CalendarComponent({
-                        // selectedDate: this.selectedDate,
                         selectedDay: this.selectedDay,
                         onUpdateDateWrapper: { callback: async () => await this.refreshPlanData() }
                     }).height('300.00vp').width('100%')
-                    // CalendarComponentV2().height('300.00vp').width('100%')
 
                     if (this.planData.length > 0) {
                         List({ space: '10.00vp' }) {
@@ -71,6 +64,19 @@ export struct DailyDose {
                             })
                         }.margin({ top: '50.00vp' }).layoutWeight(1).width('90%').height('')
                     } else if (this.isBeforeToday(this.selectedDate ?? '')) {
+                    } else if (this.isCurrentToday(this.selectedDate)) {
+                        Column({ space: '20.00vp' }) {
+                            Button($r('app.string.AddMedicationRegimen'))
+                                .width('70%')
+                                .height('60')
+                                .type(ButtonType.Normal)
+                                .borderRadius(16)
+                                .fontSize('16.00vp')
+                                .onClick(() => {
+                                    router.pushUrl({ url: 'pages/MyMeds/course/course' })
+                                })
+                        }.margin({ top: '250.00vp' })
+                        .layoutWeight(1)
                     } else {
                         Column({ space: '20.00vp' }) {
 
@@ -94,7 +100,6 @@ export struct DailyDose {
             }
             .onStateChange(async () => {
                 this.isRefreshing = true
-                // this.planData = await ListPlan()
                 this.refreshPlanData()
                 setTimeout(() => {
                     this.isRefreshing = false
@@ -104,10 +109,24 @@ export struct DailyDose {
     }
 
     private isBeforeToday(val: string): boolean {
+        if (val === undefined) {
+            return true
+        }
         const inputDate = new Date(val)
         const today = new Date()
         today.setHours(0, 0, 0, 0)
         return inputDate < today
+    }
+
+    private isCurrentToday(val: string | undefined): boolean {
+        if (val === undefined) {
+            return true
+        }
+        const inputDate = new Date(val)
+        const today = new Date()
+        inputDate.setHours(0, 0, 0, 0);
+        today.setHours(0, 0, 0, 0);
+        return inputDate.getTime() === today.getTime();
     }
 
     private async requestEnableNotification(): Promise<void> {

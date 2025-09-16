@@ -5,7 +5,6 @@ import { BusinessError } from '@kit.BasicServicesKit';
 import { JSON } from '@kit.ArkTS';
 import { medicineLogin } from '../../common/function/medicineLogin';
 import { LoginRequestData } from '../../common/interface/medicineLogin';
-import { openBrowser } from '../../common/function/openBrowser';
 import { HuaweiAccountUserAuthenticationProtocolAddress } from '../../common/constant/constant';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 

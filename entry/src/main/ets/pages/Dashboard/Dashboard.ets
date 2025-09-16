@@ -2,14 +2,11 @@ import { DailyDose } from '../DailyDose/DailyDose';
 import { DoseLog } from '../DoseLog/DoseLog';
 import { Me } from '../Me/Me';
 import { MyMeds } from '../MyMeds/MyMeds';
-import { promptAction } from '@kit.ArkUI';
-import { CalendarUtils, getDate } from '../../common/function/date';
 
 @Entry
 @Component
 @Preview
 struct Dashboard {
-    // @State currentIndex: number = 0;
     @StorageProp('currentIndex') currentIndex: number = AppStorage.get('currentIndex') ?? 0;
     @State DailyDoseRefreshFlag: number = 0;
 
@@ -58,20 +55,9 @@ struct Dashboard {
         .scrollable(false)
         .onChange((val) => {
             this.currentIndex = val
-            // AppStorage.setOrCreate('selectedDay', new Date().getDate())
             AppStorage.setOrCreate('currentIndex', val)
-            // AppStorage.setOrCreate('selectedDate', CalendarUtils.getToday())
             // 刷新flag
             this.DailyDoseRefreshFlag++
-            // if (val === 0) {
-            //     this.DailyDoseRefreshFlag++
-            // } else if (val === 1) {
-            //     this.DailyDoseRefreshFlag++
-            // } else if (val === 2) {
-            //     this.DailyDoseRefreshFlag++
-            // } else if (val === 3) {
-            //     this.DailyDoseRefreshFlag++
-            // }
         })
     }
 }

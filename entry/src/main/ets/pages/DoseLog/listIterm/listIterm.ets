@@ -1,6 +1,4 @@
 import { recordListDataContents } from "../../../common/interface/medicinePlanRecord"
-import router from "@ohos.router"
-import { AppStorageV2 } from "@kit.ArkUI"
 import { dealAllError } from "../../../common/function/error"
 
 @Component
@@ -45,9 +43,8 @@ export struct listIterm {
                         .fontColor('#888888')
                         .margin({ top: 4 })
                     Blank()
-                    // Text(this.translateStatus(item.status))
                     Text(this.translateStatusAndIsChecked(item.status, item.is_checked))
-                        .fontSize(14)// .fontColor(item.status === 1 ? '#FF0000' : '#0000FF')
+                        .fontSize(14)
                         .fontColor(this.translateStatusAndIsCheckedColor(item.status, item.is_checked))
                         .margin({ top: 4 })
                 }

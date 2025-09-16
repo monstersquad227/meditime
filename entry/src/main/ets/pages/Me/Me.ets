@@ -1,12 +1,10 @@
-import { promptAction, router } from "@kit.ArkUI";
+import { router } from "@kit.ArkUI";
 import { authentication } from "@kit.AccountKit";
 import { util } from '@kit.ArkTS';
 import { hilog } from "@kit.PerformanceAnalysisKit";
 import { BusinessError } from "@kit.BasicServicesKit";
 import { dealAllError } from "../../common/function/error";
-import { common, Want } from "@kit.AbilityKit";
-import { openBrowser } from "../../common/function/openBrowser";
-import { HuaweiAccountUserAuthenticationProtocolAddress, QuestionnaireAddress } from "../../common/constant/constant";
+import { QuestionnaireAddress } from "../../common/constant/constant";
 
 
 @Component
@@ -36,10 +34,8 @@ export struct Me {
                 const authorizationWithHuaweiIDCredential = authorizationWithHuaweiIDResponse?.data;
                 const avatarUri = authorizationWithHuaweiIDCredential?.avatarUri;
                 const nickName = authorizationWithHuaweiIDCredential?.nickName;
-                // const authorizationCode = authorizationWithHuaweiIDCredential?.authorizationCode;
                 this.nickname = nickName
                 this.avatarUri = avatarUri
-                // 开发者处理avatarUri, nickName, authorizationCode
             }).catch((err: BusinessError) => {
                 dealAllError(err);
             });
@@ -94,8 +90,6 @@ export struct Me {
                 }
                 .margin({ right: '10.00vp' })
                 .onClick(() => {
-                    // const context = this.getUIContext().getHostContext() as common.UIAbilityContext
-                    // openBrowser(context, QuestionnaireAddress);
                     router.pushUrl({
                         url: 'pages/common/WebPage',
                         params: { url: QuestionnaireAddress, title: $r('app.string.Feedback') }

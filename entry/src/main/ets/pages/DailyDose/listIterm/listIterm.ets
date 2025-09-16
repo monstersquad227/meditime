@@ -81,11 +81,6 @@ export struct listIterm {
                                 }
                             }]
                         })
-                        // await recordUpdate(body)
-                        //
-
-                        // AlertDialog.show({ title: 'body', message: JSON.stringify(body) })
-                        // CreatePlan(body)
                     })
                     .margin({ right: '20.00vp' })
             }
