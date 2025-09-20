@@ -224,7 +224,7 @@ struct updateCourse {
                                 plan_time: this.plat_times,
                                 frequency: this.frequency
                             }
-                            AlertDialog.show({ message: JSON.stringify(body) })
+                            // AlertDialog.show({ message: JSON.stringify(body) })
                             UpdateCourse(body)
                             router.back()
                         })

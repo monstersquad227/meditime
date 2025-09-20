@@ -8,6 +8,8 @@ import { notificationManager } from '@kit.NotificationKit';
 import { common } from '@kit.AbilityKit';
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { pushService } from '@kit.PushKit';
+import { updatePushToken } from '../../common/function/medicineUserPushToken';
+import { UpdatePushTokenData } from '../../common/interface/medicineUser';
 
 @Component
 export struct DailyDose {
@@ -134,6 +136,10 @@ export struct DailyDose {
         try {
             await notificationManager.requestEnableNotification(context).then(async () => {
                 const pushToken: string = await pushService.getToken();
+                const data: UpdatePushTokenData = {
+                    push_token: pushToken
+                }
+                updatePushToken(data)
                 hilog.info(0x0000, 'pushToken', pushToken)
             })
 
